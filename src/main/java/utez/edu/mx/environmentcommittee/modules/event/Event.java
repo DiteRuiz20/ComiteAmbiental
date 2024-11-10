@@ -1,4 +1,5 @@
 package utez.edu.mx.environmentcommittee.modules.event;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import utez.edu.mx.environmentcommittee.modules.type.Type;
 import utez.edu.mx.environmentcommittee.modules.user.User;
@@ -29,6 +30,7 @@ public class Event {
         private Type type;
 
         @ManyToMany
+        @JsonIgnore
         @JoinTable(
                 name = "event_has_users",
                 joinColumns = @JoinColumn(name = "event_id"),

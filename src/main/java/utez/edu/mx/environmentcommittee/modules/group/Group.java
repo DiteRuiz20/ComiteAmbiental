@@ -1,4 +1,5 @@
 package utez.edu.mx.environmentcommittee.modules.group;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import utez.edu.mx.environmentcommittee.modules.user.User;
 
@@ -22,6 +23,7 @@ public class Group {
     private String neighborhood;
 
     @OneToMany(mappedBy = "group")
+    @JsonIgnore
     private List<User> users;
 
     public Group() {
