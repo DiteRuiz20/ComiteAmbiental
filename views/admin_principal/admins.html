@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gestion administradores </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../styles.css">
+  </head>
+  <body>
+
+    <!--Menu de navegacion-->
+    <nav class="navbar navbar-expand-lg navbarMenu">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <i class="bi bi-house-fill"></i>
+            COMITE AMBIENTAL 
+            </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="bi bi-person-fill"></i>
+                    Perfil
+                </a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-tree-fill"></i>
+                  Acciones
+                </a>
+                <ul class="dropdown-menu actionsMenu">
+                  <li>
+                    <a class="dropdown-item actionMenu" href="#">
+                    <i class="bi bi-person-gear"></i>
+                    Administradores
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item actionMenu" href="#">
+                    <i class="bi bi-people"></i>
+                    Grupos
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!--Boton de agrgar administrador de grupo-->
+      <nav class="navbar">
+        <form class="container-fluid justify-content-end">
+          <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addAdminModal">
+            <i class="bi bi-person-plus-fill"></i>
+            Agregar administrador
+          </button>
+        </form>
+      </nav>
+
+      <!--Tabla de registros de administradores de grupo-->
+      <div class="table-responsive">
+        <table class="table table-hover align-middle caption-top">
+            <caption class="fs-4">Lista de administradores</caption>
+            <thead class="align-middle">
+              <tr>
+                <th scope="col" class="fs-3 headersTable">#</th>
+                <th scope="col" class="fs-3 headersTable">Nombre</th>
+                <th scope="col" class="fs-3 headersTable">Apellido</th>
+                <th scope="col" class="fs-3 headersTable">Grupo Asignado</th>
+                <th scope="col" class="fs-3 headersTable">Acciones</th>
+              </tr>
+            </thead>
+            <tbody class="table-group-divider">
+              <tr>
+                <th scope="row" class="fs-4 dataTable">1</th>
+                <td class="fs-4 dataTable">Mark</td>
+                <td class="fs-4 dataTable">Otto</td>
+                <td class="fs-4 dataTable">@mdo</td>
+                <td class="fs-4 dataTable">
+                    <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#viewAdminModal">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-info btn-lg" data-bs-toggle="modal" data-bs-target="#editAdminModal">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-danger btn-lg">
+                      <i class="bi bi-person-dash"></i>
+                    </button>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row" class="fs-4 dataTable">2</th>
+                <td class="fs-4 dataTable">Jacob</td>
+                <td class="fs-4 dataTable">Thornton</td>
+                <td class="fs-4 dataTable">@fat</td>
+                <td class="fs-4 dataTable">
+                    <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#viewAdminModal">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-info btn-lg" data-bs-toggle="modal" data-bs-target="#editAdminModal">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-success btn-lg">
+                      <i class="bi bi-person-check"></i>
+                    </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+
+      <!--MODALES//////////////////////////////////////////////////////////////////////////-->
+
+      <!--MODAL AGREGAR-->
+      <div class="modal fade" id="addAdminModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5 modalTittle" id="staticBackdropLabel">Registro de Administrador</h1>
+            </div>
+              <form action="">
+                <div class="modal-body">
+                  <div class="card-body">
+                    <div class="row g-3">
+                      <div class="col-6">
+                        <label for="addName" class="labelModal"><small>Nombre(s):</small></label>
+                        <input type="text" id="addName" placeholder="Nombres" class="form-control inputModal">
+                      </div>
+                      <div class="col-6">
+                        <label for="addLastname" class="labelModal"><small>Apellidos:</small></label>
+                        <input type="text" id="addLastname" placeholder="Apellidos" class="form-control inputModal">
+                      </div>
+                      <div class="col-6">
+                        <label for="addPhone" class="labelModal"><small>Numero telefonico:</small></label>
+                        <input type="text" id="addPhone" placeholder="Numero telefonico" class="form-control inputModal">
+                      </div>
+                      <div class="col-6">
+                        <label for="addEmail" class="labelModal"><small>Correo Electronico:</small></label>
+                        <input type="text" id="addEmail" placeholder="Correo Electronico" class="form-control inputModal">
+                      </div>
+                      <div class="col-6">
+                          <label for="addUser" class="labelModal"><small>Usuario:</small></label>
+                          <input type="text" id="addUser" placeholder="Nombre de usuario" class="form-control inputModal">
+                      </div>
+                      <div class="col-6">
+                          <label for="addPassword" class="labelModal"><small>Contraseña</small></label>
+                          <input type="password" id="addPassword" placeholder="Contraseña" class="form-control inputModal">
+                      </div>
+                    </div>
+                 </div>
+               </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-cancelModal" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-actionModal">Registrar</button>
+              </div>
+              </form>
+          </div>
+        </div>
+      </div>
+
+      <!--MODAL EDITAR-->
+      <div class="modal fade" id="editAdminModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5 modalTittle" id="staticBackdropLabel">Editar Administrador</h1>
+            </div>
+              <form action="">
+                <div class="modal-body">
+                  <div class="card-body">
+                    <div class="row g-3">
+                      <div class="col-6">
+                        <label for="editName" class="labelModal"><small>Nombre(s):</small></label>
+                        <input type="text" id="editName" value="Nombres" class="form-control inputModal">
+                      </div>
+                      <div class="col-6">
+                        <label for="editLastname" class="labelModal"><small>Apellidos:</small></label>
+                        <input type="text" id="editLastname" value="Apellidos" class="form-control inputModal">
+                      </div>
+                      <div class="col-6">
+                        <label for="editPhone" class="labelModal"><small>Numero telefonico:</small></label>
+                        <input type="text" id="editPhone" value="Numero telefonico" class="form-control inputModal">
+                      </div>
+                      <div class="col-6">
+                        <label for="editEmail" class="labelModal"><small>Correo Electronico:</small></label>
+                        <input type="text" id="editEmail" value="Correo Electronico" class="form-control inputModal">
+                      </div>
+                      <div class="col-6">
+                          <label for="editUser" class="labelModal"><small>Usuario:</small></label>
+                          <input type="text" id="editUser" value="Nombre de usuario" class="form-control inputModal">
+                      </div>
+                    </div>
+                 </div>
+               </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-cancelModal" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-actionModal">Editar</button>
+              </div>
+              </form>
+          </div>
+        </div>
+      </div>
+
+      <!--MODAL VER MAS-->
+      <div class="modal fade" id="viewAdminModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5 modalTittle" id="staticBackdropLabel">Ver informacion de Administrador</h1>
+            </div>
+              <form action="">
+                <fieldset disabled>
+                <div class="modal-body">
+                  <div class="card-body">
+                    <div class="row g-3">
+                      <div class="col-6">
+                        <label for="viewPhone" class="labelModal"><small>Numero telefonico:</small></label>
+                        <input type="text" id="viewPhone" value="Numero telefonico" class="form-control inputModal">
+                      </div>
+                      <div class="col-6">
+                        <label for="viewEmail" class="labelModal"><small>Correo Electronico:</small></label>
+                        <input type="text" id="viewEmail" value="Correo Electronico" class="form-control inputModal">
+                      </div>
+                      <div class="col-6">
+                          <label for="viewUser" class="labelModal"><small>Usuario:</small></label>
+                          <input type="text" id="viewUser" value="Nombre de usuario" class="form-control inputModal">
+                      </div>
+                    </div>
+                 </div>
+               </div>
+              </fieldset>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-actionModal" data-bs-dismiss="modal">Salir</button>
+              </div>
+              </form>
+          </div>
+        </div>
+      </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
+</html>
