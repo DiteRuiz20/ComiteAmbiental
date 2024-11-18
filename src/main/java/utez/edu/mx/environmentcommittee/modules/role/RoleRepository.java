@@ -5,28 +5,25 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 @Repository
-public interface RoleRepository  extends JpaRepository<Role, Long> {
-    // GETTERS -> CONSULTAS
-    // Get all
+public interface RoleRepository extends JpaRepository<Role, Long> {
+    // BRING ALL ROLES
     List<Role> findAll();
 
-    // Get by id
+    // BRING ROLE BY ID
     Role findById(long id);
 
-    // Get by role name
-    @Query(value = "SELECT * FROM role WHERE name = :nameRole", nativeQuery = true)
-    Role findByNameRole(@Param("nameRole") String nameRole);
+    // SAVE/UPDATE ROLE
+    Role save(Role role);
 
-    // ACTIONS ->
-    // save | update
-    Role save (Role role);
-
-    //delete
+    // DELETE ROLE
     @Modifying
-    @Query(value = "DELETE FROM role WHERE id = :idRole", nativeQuery = true)
-    void deleteById(@Param("idRole") long idRole);
+    @Query(value = "DELETE FROM role WHERE id = :id", nativeQuery = true)
+    void deleteById(@Param("id") long id);
+
+    // FIND ROLE BY NAME
+    @Query(value = "SELECT * FROM role WHERE name = :name", nativeQuery = true)
+    Role findByName(@Param("name") String name);
 }

@@ -6,7 +6,7 @@ import utez.edu.mx.environmentcommittee.modules.user.User;
 import java.util.List;
 
 @Entity
-@Table(name = "group")
+@Table(name = "groupss")
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

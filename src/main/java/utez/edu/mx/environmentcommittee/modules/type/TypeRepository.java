@@ -5,29 +5,25 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 @Repository
 public interface TypeRepository extends JpaRepository<Type, Long> {
-    //GETTERS -> CONSULTAS
-    // Get all types
+    // BRING ALL TYPES
     List<Type> findAll();
 
-    // Get by id
+    // BRING TYPE BY ID
     Type findById(long id);
 
-    // Get by name
-    @Modifying
-    @Query(value = "SELECT * FROM type WHERE name = :nameType", nativeQuery = true)
-    Type findByNameType(@Param("nameType") String nameType);
-
-    // ACTIONS ->
-    // save | update
+    // SAVE/UPDATE TYPE
     Type save(Type type);
 
-    // change status
+    // DELETE TYPE
     @Modifying
-    @Query(value = "UPDATE type SET status = :statusType WHERE id = :idType", nativeQuery = true)
-    void updateStatusType(@Param("statusType") String statusType, @Param("idType") long idType);
+    @Query(value = "DELETE FROM type WHERE id = :id", nativeQuery = true)
+    void deleteById(@Param("id") long id);
+
+    // FIND TYPE BY NAME
+    @Query(value = "SELECT * FROM type WHERE name = :name", nativeQuery = true)
+    Type findByName(@Param("name") String name);
 }
