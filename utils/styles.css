@@ -11,6 +11,7 @@
 }
 
 
+
 /* ------------------CSS STYLES FOR TABLE---------------------- */
 
 .headersTable{
@@ -54,3 +55,42 @@
 .btn-actionModal{
     background-color: #88C273;
 }
+
+/* BUTTON ADD TO CALENDAR */
+
+  /* -------------------ADD BUTTONS */
+  .addButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 9px 12px;
+    gap: 8px;
+    height: 40px;
+    width: 250px;
+    border: none;
+    background: #34cf9c;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.lable {
+    line-height: 22px;
+    font-size: 17px;
+    color: #fff;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+}
+
+.addButton:hover {
+    background: #60d8b0;
+}
+
+.addButton .svg-icon {
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.addButton:hover .svg-icon {
+    transform: rotate(20deg) scale(1.1);
+    color: #ffffff;
+}
+

@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../utils/styles.css">
     <script src="https://kit.fontawesome.com/d137dd6862.js" crossorigin="anonymous"></script>
+    <!-- JQUERY AND sweetalert2 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    
   </head>
   <body>
 
@@ -68,8 +73,8 @@
       <!--Boton de agrgar administrador de grupo-->
       <nav class="navbar">
         <form class="container-fluid justify-content-end">
-          <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addEventModal">
-            <i class="bi bi-calendar-plus-fill"></i>
+          <button type="button" class="addButton" data-bs-toggle="modal" data-bs-target="#addEventModal">
+            <i class="bi bi-calendar-plus-fill svg-icon"></i>
             Agregar evento
           </button>
         </form>
@@ -184,7 +189,8 @@
                </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-cancelModal" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-actionModal">Registrar</button>
+                <button type="button" class="btn btn-actionModal confirmRegAlert" id="">Registrar</button>
+
               </div>
               </form>
           </div>
@@ -229,7 +235,7 @@
                </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-cancelModal" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-actionModal">Registrar</button>
+                <button type="button" class="btn btn-actionModal confirmUpdAlert">Editar</button>
               </div>
               </form>
           </div>
@@ -269,5 +275,7 @@
       </div>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- INCLUDE SCRIPT FOR ALERTS -->
+     <script src="../utils/alerts.js"></script>
   </body>
 </html>

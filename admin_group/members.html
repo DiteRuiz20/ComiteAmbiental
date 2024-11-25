@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../utils/styles.css">
     <script src="https://kit.fontawesome.com/d137dd6862.js" crossorigin="anonymous"></script>
+    <!-- JQUERY AND sweetalert2 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   <body>
 
@@ -68,8 +71,8 @@
       <!--Boton de agrgar administrador de grupo-->
       <nav class="navbar">
         <form class="container-fluid justify-content-end">
-          <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addUserModal">
-            <i class="bi bi-person-fill-add"></i>
+          <button type="button" class="addButton" data-bs-toggle="modal" data-bs-target="#addUserModal">
+            <i class="bi bi-person-fill-add svg-icon"></i>
             Agregar usuario
           </button>
         </form>
@@ -101,7 +104,7 @@
                     <button type="button" class="btn btn-outline-info btn-lg" data-bs-toggle="modal" data-bs-target="#editUserModal">
                         <i class="bi bi-pencil-square"></i>
                     </button>
-                    <button type="button" class="btn btn-outline-danger btn-lg">
+                    <button type="button" class="btn btn-outline-danger btn-lg confirmHabStatusAlert" data-user="este Miembro">
                       <i class="bi bi-person-dash"></i>
                     </button>
                 </td>
@@ -118,7 +121,7 @@
                     <button type="button" class="btn btn-outline-info btn-lg" data-bs-toggle="modal" data-bs-target="#editUserModal">
                         <i class="bi bi-pencil-square"></i>
                     </button>
-                    <button type="button" class="btn btn-outline-success btn-lg">
+                    <button type="button" class="btn btn-outline-success btn-lg confirmDesStatusAlert" data-user="este Miembro">
                       <i class="bi bi-person-check"></i>
                     </button>
                 </td>
@@ -165,7 +168,7 @@
                </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-cancelModal" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-actionModal">Registrar</button>
+                <button type="button" class="btn btn-actionModal confirmRegAlert" id="">Registrar</button>
               </div>
               </form>
           </div>
@@ -175,46 +178,46 @@
       <!--MODAL EDITAR-->
       <div class="modal fade" id="editUserModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5 modalTittle" id="staticBackdropLabel">Editar Usuario</h1>
-            </div>
-              <form action="">
-                <div class="modal-body">
-                  <div class="card-body">
-                    <div class="row g-3">
-                      <div class="col-6">
-                        <label for="editUserName" class="labelModal"><small>Nombre:</small></label>
-                        <input type="text" id="editUserName" name="editUserName" placeholder="Nombre" class="form-control inputModal">
-                      </div>
-                      <div class="col-6">
-                        <label for="editUserLastname" class="labelModal"><small>Apellidos:</small></label>
-                        <input type="text" id="editUserLastname" name="editUserLastname" placeholder="Apellidos" class="form-control inputModal">
-                      </div>
-                      <div class="col-6">
-                        <label for="edituserPhone" class="labelModal"><small>Numero telefonico:</small></label>
-                        <input type="text" id="edituserPhone" name="edituserPhone" placeholder="Numero telefonico" class="form-control inputModal">
-                      </div>
-                      <div class="col-6">
-                        <label for="editUserEmail" class="labelModal"><small>Correo Electronico:</small></label>
-                        <input type="text" id="editUserEmail" name="editUserEmail" placeholder="Correo Electronico" class="form-control inputModal">
-                      </div>
-                      <div class="col-6">
-                        <label for="editUserUsername" class="labelModal"><small>Nombre de usuario:</small></label>
-                        <input type="text" id="editUserUsername" name="editUserUsername" placeholder="Nombre de usuario" class="form-control inputModal">
-                      </div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 modalTittle" id="staticBackdropLabel">Editar Usuario</h1>
+                </div>
+                <form id="editUserForm" action="">
+                    <div class="modal-body">
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-6">
+                                    <label for="editUserName" class="labelModal"><small>Nombre:</small></label>
+                                    <input type="text" id="editUserName" name="editUserName" placeholder="Nombre" class="form-control inputModal">
+                                </div>
+                                <div class="col-6">
+                                    <label for="editUserLastname" class="labelModal"><small>Apellidos:</small></label>
+                                    <input type="text" id="editUserLastname" name="editUserLastname" placeholder="Apellidos" class="form-control inputModal">
+                                </div>
+                                <div class="col-6">
+                                    <label for="edituserPhone" class="labelModal"><small>Numero telefonico:</small></label>
+                                    <input type="text" id="edituserPhone" name="edituserPhone" placeholder="Numero telefonico" class="form-control inputModal">
+                                </div>
+                                <div class="col-6">
+                                    <label for="editUserEmail" class="labelModal"><small>Correo Electronico:</small></label>
+                                    <input type="text" id="editUserEmail" name="editUserEmail" placeholder="Correo Electronico" class="form-control inputModal">
+                                </div>
+                                <div class="col-6">
+                                    <label for="editUserUsername" class="labelModal"><small>Nombre de usuario:</small></label>
+                                    <input type="text" id="editUserUsername" name="editUserUsername" placeholder="Nombre de usuario" class="form-control inputModal">
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                 </div>
-               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-cancelModal" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-actionModal">Editar</button>
-              </div>
-              </form>
-          </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-cancelModal" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" id="" class="btn btn-actionModal confirmUpdAlert">Actualizar</button>
+                    </div>
+                </form>
+            </div>
         </div>
       </div>
-
+      
       <!--MODAL VER MAS-->
       <div class="modal fade" id="viewUserModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -248,5 +251,6 @@
       </div>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="../utils/alerts.js"></script>
   </body>
 </html>

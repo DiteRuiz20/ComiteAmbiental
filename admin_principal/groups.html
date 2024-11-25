@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../utils/styles.css">
     <script src="https://kit.fontawesome.com/d137dd6862.js" crossorigin="anonymous"></script>
+    <!-- JQUERY AND sweetalert2 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   <body>
 
@@ -68,8 +71,8 @@
       <!--Boton de agrgar administrador de grupo-->
       <nav class="navbar">
         <form class="container-fluid justify-content-end">
-          <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addGroupModal">
-            <i class="fa-solid fa-users-viewfinder"></i>
+          <button type="button" class="addButton" data-bs-toggle="modal" data-bs-target="#addGroupModal">
+            <i class="fa-solid fa-users-viewfinder svg-icon"></i>
             Agregar grupo
           </button>
         </form>
@@ -99,7 +102,7 @@
                     <button type="button" class="btn btn-outline-info btn-lg" data-bs-toggle="modal" data-bs-target="#editGroupModal">
                         <i class="bi bi-pencil-square"></i>
                     </button>
-                    <button type="button" class="btn btn-outline-danger btn-lg">
+                    <button type="button" class="btn btn-outline-danger btn-lg confirmHabStatusAlert" data-user="este Grupo">
                       <i class="fa-solid fa-users-slash"></i>
                     </button>
                 </td>
@@ -115,7 +118,7 @@
                     <button type="button" class="btn btn-outline-info btn-lg" data-bs-toggle="modal" data-bs-target="#editGroupModal">
                         <i class="bi bi-pencil-square"></i>
                     </button>
-                    <button type="button" class="btn btn-outline-success btn-lg">
+                    <button type="button" class="btn btn-outline-success btn-lg confirmDesStatusAlert" data-user="este Grupo">
                       <i class="fa-solid fa-users"></i>
                     </button>
                 </td>
@@ -168,7 +171,7 @@
                </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-cancelModal" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-actionModal">Registrar</button>
+                <button type="button" class="btn btn-actionModal confirmRegAlert">Registrar</button>
               </div>
               </form>
           </div>
@@ -178,51 +181,46 @@
       <!--MODAL EDITAR-->
       <div class="modal fade" id="editGroupModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5 modalTittle" id="staticBackdropLabel">Editar Grupo</h1>
-            </div>
-              <form action="">
-                <div class="modal-body">
-                  <div class="card-body">
-                    <div class="row g-3">
-                      <div class="col-6">
-                        <label for="editGroupName" class="labelModal"><small>Nombre:</small></label>
-                        <input type="text" id="editGroupName" name="editGroupName" placeholder="Nombre" class="form-control inputModal">
-                      </div>
-                      <div class="col-6">
-                        <label for="editMunicipio" class="labelModal"><small>Municipio:</small></label>
-                        <input type="text" id="editMunicipio" name="editGroupMunicipio" placeholder="Municipio" class="form-control inputModal">
-                      </div>
-                      <div class="col-6">
-                        <label for="editNeighborhood" class="labelModal"><small>Colonia:</small></label>
-                        <input type="text" id="editNeighborhood" name="editGroupNeighborhood" placeholder="Colonia" class="form-control inputModal">
-                      </div>
-                      <div class="col-6">
-                        <label for="editAdmin" class="labelModal"><small>Administrador:</small></label>
-                        <select class="form-select inputModal" name="editAdmin" id="editAdmin">
-                            <option class="inputModal" value="admin1">
-                                admin 1
-                            </option>
-                            <option value="admin2" class="inputModal">
-                                admin 2
-                            </option>
-                            <option value="admin3" class="inputModal">
-                                admin3
-                            </option>
-                        </select>
-                      </div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 modalTittle" id="staticBackdropLabel">Editar Grupo</h1>
+                </div>
+                <form id="editGroupForm" action="">
+                    <div class="modal-body">
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-6">
+                                    <label for="editGroupName" class="labelModal"><small>Nombre:</small></label>
+                                    <input type="text" id="editGroupName" name="editGroupName" placeholder="Nombre" class="form-control inputModal">
+                                </div>
+                                <div class="col-6">
+                                    <label for="editMunicipio" class="labelModal"><small>Municipio:</small></label>
+                                    <input type="text" id="editMunicipio" name="editGroupMunicipio" placeholder="Municipio" class="form-control inputModal">
+                                </div>
+                                <div class="col-6">
+                                    <label for="editNeighborhood" class="labelModal"><small>Colonia:</small></label>
+                                    <input type="text" id="editNeighborhood" name="editGroupNeighborhood" placeholder="Colonia" class="form-control inputModal">
+                                </div>
+                                <div class="col-6">
+                                    <label for="editAdmin" class="labelModal"><small>Administrador:</small></label>
+                                    <select class="form-select inputModal" name="editAdmin" id="editAdmin">
+                                        <option class="inputModal" value="admin1">admin 1</option>
+                                        <option value="admin2" class="inputModal">admin 2</option>
+                                        <option value="admin3" class="inputModal">admin 3</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                 </div>
-               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-cancelModal" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-actionModal">Editar</button>
-              </div>
-              </form>
-          </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-cancelModal" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-actionModal confirmUpdAlert" id="">Actualizar</button>
+                    </div>
+                </form>
+            </div>
         </div>
       </div>
+
 
       <!--MODAL VER MAS-->
       <div class="modal fade" id="viewGroupModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -257,5 +255,6 @@
       </div>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="../utils/alerts.js"></script>
   </body>
 </html>
