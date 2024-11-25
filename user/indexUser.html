@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Eventos </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../utils/styles.css">
+    <script src="https://kit.fontawesome.com/d137dd6862.js" crossorigin="anonymous"></script>
+
+  </head>
+  <body>
+
+    <!--Menu de navegacion-->
+    <nav class="navbar navbar-expand-lg navbarMenu">
+        <div class="container-fluid">
+          <a class="navbar-brand text-light" href="#">
+            <img src="../icons/ECO_VIDA_icon.png" alt="" class="principal-icon" style= "width: 3em; height: 3em;">
+            COMITE AMBIENTAL 
+            </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active text-light" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-light" href="#">
+                    <i class="bi bi-person-fill text-light"></i>
+                    Perfil
+                </a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-tree-fill text-light"></i>
+                  Acciones
+                </a>
+                <ul class="dropdown-menu actionsMenu">
+                  <li>
+                    <a class="dropdown-item actionMenu" href="./admins.html">
+                    <i class="fa-solid fa-users-gear"></i>
+                    Administradores
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item actionMenu" href="./groups.html">
+                      <i class="fa-solid fa-people-roof"></i>
+                    Grupos
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <div class="collapse navbar-collapse justify-content-end">
+                <li class="nav-item">
+                  <a class="nav-link text-light" href="#">
+                    <i class="fa-solid fa-door-open"></i>
+                    Cerrar sesion
+                  </a>
+                </li>
+              </div>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!-- tabla de eventos -->
+      <table class="table table-borderless">
+        <tbody>
+          <tr>
+            <td>
+                <div class="card shadow ms-4 mt-4 border-0" >
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col">
+                          <h5 class="card-title">Titulo del evento</h5>
+                        </div>
+                        <div class="col">
+                          <span class="badge rounded-pill text-bg-primary">En ejecucion</span>
+                        </div>
+                      </div>
+                     
+                      
+                      <div class="row">
+                        <div class="col">
+                            <h6 class="card-subtitle mb-2 text-body-secondary">Fecha:</h6>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">11/21/2024</h6>
+                        </div>
+                      </div>
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Tipo de evento:</li>
+                        <li class="list-group-item">Tipo 1</li>
+                      </ul>
+                    </div>
+                    <div class="card-footer">
+                        <form action="">
+                            <div class="row">
+                              <div class="col">
+                                <button type="button" class="btn btn-outline-primary">Confirmar Asistencia</button>
+                              </div>
+                              <div class="col">
+                                <button type="button" class="btn btn-outline-secondary">Denegar Asistencia</button>
+                              </div>
+                            </div>
+                        </form>
+                    </div>
+                  </div>
+            </td>
+            <td>
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                      <h5 class="card-title">Titulo del evento</h5>
+                      <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="card-link">Card link</a>
+                      <a href="#" class="card-link">Another link</a>
+                    </div>
+                  </div>
+            </td>
+            <td>
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                      <h5 class="card-title">Titulo del evento</h5>
+                      <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="card-link">Card link</a>
+                      <a href="#" class="card-link">Another link</a>
+                    </div>
+                  </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!--MODALES//////////////////////////////////////////////////////////////////////////-->
+
+      <!--MODAL AGREGAR-->
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
+</html>

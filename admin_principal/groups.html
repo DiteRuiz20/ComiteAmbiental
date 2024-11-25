@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gestion grupos </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../utils/styles.css">
+    <script src="https://kit.fontawesome.com/d137dd6862.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+
+    <!--Menu de navegacion-->
+    <nav class="navbar navbar-expand-lg navbarMenu">
+        <div class="container-fluid">
+          <a class="navbar-brand text-light" href="#">
+            <img src="../icons/ECO_VIDA_icon.png" alt="" class="principal-icon" style= "width: 3em; height: 3em;">
+            COMITE AMBIENTAL 
+            </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active text-light" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-light" href="#">
+                    <i class="bi bi-person-fill text-light"></i>
+                    Perfil
+                </a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-tree-fill text-light"></i>
+                  Acciones
+                </a>
+                <ul class="dropdown-menu actionsMenu">
+                  <li>
+                    <a class="dropdown-item actionMenu" href="./admins.html">
+                    <i class="fa-solid fa-users-gear"></i>
+                    Administradores
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item actionMenu" href="./groups.html">
+                      <i class="fa-solid fa-people-roof"></i>
+                    Grupos
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <div class="collapse navbar-collapse justify-content-end">
+                <li class="nav-item">
+                  <a class="nav-link text-light" href="#">
+                    <i class="fa-solid fa-door-open"></i>
+                    Cerrar sesion
+                  </a>
+                </li>
+              </div>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!--Boton de agrgar administrador de grupo-->
+      <nav class="navbar">
+        <form class="container-fluid justify-content-end">
+          <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addGroupModal">
+            <i class="fa-solid fa-users-viewfinder"></i>
+            Agregar grupo
+          </button>
+        </form>
+      </nav>
+
+      <!--Tabla de registros de administradores de grupo-->
+      <div class="table-responsive m-5">
+        <table class="table table-hover align-middle caption-top table-striped">
+            <caption class="fs-4">Lista de grupos</caption>
+            <thead class="align-middle">
+              <tr>
+                <th scope="col" class="fs-3 headersTable">#</th>
+                <th scope="col" class="fs-3 headersTable">Nombre</th>
+                <th scope="col" class="fs-3 headersTable">Administrador</th>
+                <th scope="col" class="fs-3 headersTable">Acciones</th>
+              </tr>
+            </thead>
+            <tbody class="table-group-divider text-dark">
+              <tr>
+                <th scope="row" class="fs-4 dataTable">1</th>
+                <td class="fs-4 dataTable">ECO-friends</td>
+                <td class="fs-4 dataTable">Nombre admin 1</td>
+                <td class="fs-4 dataTable">
+                    <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#viewGroupModal">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-info btn-lg" data-bs-toggle="modal" data-bs-target="#editGroupModal">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-danger btn-lg">
+                      <i class="fa-solid fa-users-slash"></i>
+                    </button>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row" class="fs-4 dataTable">2</th>
+                <td class="fs-4 dataTable">PETA</td>
+                <td class="fs-4 dataTable">Nombre admin 2</td>
+                <td class="fs-4 dataTable">
+                    <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#viewGroupModal">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-info btn-lg" data-bs-toggle="modal" data-bs-target="#editGroupModal">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-success btn-lg">
+                      <i class="fa-solid fa-users"></i>
+                    </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+
+      <!--MODALES//////////////////////////////////////////////////////////////////////////-->
+
+      <!--MODAL AGREGAR-->
+      <div class="modal fade" id="addGroupModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5 modalTittle" id="staticBackdropLabel">Registro de Grupo</h1>
+            </div>
+              <form action="">
+                <div class="modal-body">
+                  <div class="card-body">
+                    <div class="row g-3">
+                      <div class="col-6">
+                        <label for="addGroupName" class="labelModal"><small>Nombre:</small></label>
+                        <input type="text" id="addGroupName" name="addGroupName" placeholder="Nombre" class="form-control inputModal">
+                      </div>
+                      <div class="col-6">
+                        <label for="addGroupMunicipio" class="labelModal"><small>Municipio:</small></label>
+                        <input type="text" id="addGroupMunicipio" name="addGroupMunicipio" placeholder="Municipio" class="form-control inputModal">
+                      </div>
+                      <div class="col-6">
+                        <label for="addGroupNeighborhood" class="labelModal"><small>Colonia:</small></label>
+                        <input type="text" id="addGroupNeighborhood" name="addGroupNeighborhood" placeholder="Colonia" class="form-control inputModal">
+                      </div>
+                      <div class="col-6">
+                          <label for="addGroupAdmin" class="labelModal"><small>Administrador:</small></label>
+                          <select class="form-select inputModal" name="editAdmin" id="editAdmin">
+                            <option class="inputModal" value="admin1">
+                                admin 1
+                            </option>
+                            <option value="admin2" class="inputModal">
+                                admin 2
+                            </option>
+                            <option value="admin3" class="inputModal">
+                                admin3
+                            </option>
+                          </select>
+                      </div>
+                    </div>
+                 </div>
+               </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-cancelModal" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-actionModal">Registrar</button>
+              </div>
+              </form>
+          </div>
+        </div>
+      </div>
+
+      <!--MODAL EDITAR-->
+      <div class="modal fade" id="editGroupModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5 modalTittle" id="staticBackdropLabel">Editar Grupo</h1>
+            </div>
+              <form action="">
+                <div class="modal-body">
+                  <div class="card-body">
+                    <div class="row g-3">
+                      <div class="col-6">
+                        <label for="editGroupName" class="labelModal"><small>Nombre:</small></label>
+                        <input type="text" id="editGroupName" name="editGroupName" placeholder="Nombre" class="form-control inputModal">
+                      </div>
+                      <div class="col-6">
+                        <label for="editMunicipio" class="labelModal"><small>Municipio:</small></label>
+                        <input type="text" id="editMunicipio" name="editGroupMunicipio" placeholder="Municipio" class="form-control inputModal">
+                      </div>
+                      <div class="col-6">
+                        <label for="editNeighborhood" class="labelModal"><small>Colonia:</small></label>
+                        <input type="text" id="editNeighborhood" name="editGroupNeighborhood" placeholder="Colonia" class="form-control inputModal">
+                      </div>
+                      <div class="col-6">
+                        <label for="editAdmin" class="labelModal"><small>Administrador:</small></label>
+                        <select class="form-select inputModal" name="editAdmin" id="editAdmin">
+                            <option class="inputModal" value="admin1">
+                                admin 1
+                            </option>
+                            <option value="admin2" class="inputModal">
+                                admin 2
+                            </option>
+                            <option value="admin3" class="inputModal">
+                                admin3
+                            </option>
+                        </select>
+                      </div>
+                    </div>
+                 </div>
+               </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-cancelModal" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-actionModal">Editar</button>
+              </div>
+              </form>
+          </div>
+        </div>
+      </div>
+
+      <!--MODAL VER MAS-->
+      <div class="modal fade" id="viewGroupModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5 modalTittle" id="staticBackdropLabel">Ver informacion de Administrador</h1>
+            </div>
+              <form action="">
+                <fieldset disabled>
+                <div class="modal-body">
+                  <div class="card-body">
+                    <div class="row g-3">
+                      <div class="col-6">
+                        <label for="viewColonia" class="labelModal"><small>Colonia:</small></label>
+                        <input type="text" id="viewColonia" name="viewColonia" value="Colonia" class="form-control inputModal">
+                      </div>
+                      <div class="col-6">
+                        <label for="viewMunicipio" class="labelModal"><small>Municipio:</small></label>
+                        <input type="text" id="viewMunicipio" name="viewMunicipio" value="Municipio" class="form-control inputModal">
+                      </div>
+                    </div>
+                 </div>
+               </div>
+              </fieldset>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-actionModal" data-bs-dismiss="modal">Salir</button>
+              </div>
+              </form>
+          </div>
+        </div>
+      </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
+</html>

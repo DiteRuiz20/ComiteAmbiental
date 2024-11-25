@@ -1,0 +1,56 @@
+
+/* ------------------CSS STYLES FOR MENU---------------------- */
+.navbarMenu{
+    background-color: #117554;
+}
+
+.actionMenu:hover{
+    cursor: pointer;
+    background-color: #27b485;
+    transition: 0.5s;
+}
+
+
+/* ------------------CSS STYLES FOR TABLE---------------------- */
+
+.headersTable{
+    color: #674636 !important;
+    font-family: Cambria;
+    font-size: medium;
+}
+
+.dataTable{
+    color: #1A3636 !important;
+    font-family: sans-serif;
+}
+
+
+/* ------------------CSS STYLES FOR MODALS---------------------- */
+.modalTittle{
+    color: #1A3636 ;
+}
+.labelModal{
+    color: #1A3636;
+    font-style: bold !important;
+    font-size: large;
+}
+.inputModal{
+    font-size: small;
+    font-style: italic;
+}
+.btn-cancelModal{
+    background-color: #c5c2c3;
+}
+.btn-cancelModal:hover{
+    cursor: pointer;
+    background-color: #b5b0b1 !important;
+    transition: 0.5s;
+}
+.btn-actionModal:hover{
+    cursor: pointer;
+    background-color: #6dac57 !important;
+    transition: 0.5s;
+}
+.btn-actionModal{
+    background-color: #88C273;
+}
