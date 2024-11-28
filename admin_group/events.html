@@ -81,79 +81,81 @@
       </nav>
 
       <!--Tabla de registros de administradores de grupo-->
-      <div class="table-responsive m-5">
-        <table class="table table-hover align-middle caption-top table-striped">
-            <caption class="fs-4">Lista de eventos</caption>
-            <thead class="align-middle text-center">
-              <tr>
-                <th scope="col" class="fs-3 headersTable">#</th>
-                <th scope="col" class="fs-3 headersTable">Titulo</th>
-                <th scope="col" class="fs-3 headersTable">Tipo</th>
-                <th scope="col" class="fs-3 headersTable">Fecha</th>
-                <th scope="col" class="fs-3 headersTable">Estatus</th>
-              </tr>
-            </thead>
-            <tbody class="table-group-divider text-dark">
-              <tr>
-                <th scope="row" class="fs-4 dataTable">1</th>
-                <td class="fs-4 dataTable">Recolecciones utez</td>
-                <td class="fs-4 dataTable">Recolecciones</td>
-                <td class="fs-4 dataTable">12-12-12</td>
-                <td class="fs-4 dataTable d-flex justify-content-center">
-                    <button type="button" class="btn btn-outline-warning btn-lg w-75">
+      <div class="container-fluid">
+        <div class="table-responsive table-responsive-sm">
+          <table class="table table-hover align-middle caption-top table-striped table-sm">
+              <caption class="fs-4">Lista de eventos</caption>
+              <thead class="align-middle">
+                <tr>
+                  <th scope="col" class="headersTable">#</th>
+                  <th scope="col" class="headersTable">Titulo</th>
+                  <th scope="col" class="headersTable">Tipo</th>
+                  <th scope="col" class="headersTable">Fecha</th>
+                  <th scope="col" class="headersTable">Acciones</th>
+                </tr>
+              </thead>
+              <tbody class="table-group-divider text-dark">
+                <tr>
+                  <th scope="row" class="dataTable">1</th>
+                  <td class="dataTable">Recolecciones utez</td>
+                  <td class="dataTable">Recolecciones</td>
+                  <td class="dataTable">12-12-12</td>
+                  <td class="dataTable">
+                    <div class="container-fluid justify-content-end container-sm">
+                      <button type="button" class="btn btn-outline-warning btn-md text-break text-wrap" style="width: 10rem;" data-bs-toggle="modal" data-bs-target="#statusGroupModal">
                         <i class="bi bi-calendar4-week"></i>
                         Proximamente
-                    </button>
-                </td>
-                <td class="fs-4 dataTable">
-                    <button type="button" class="btn btn-outline-info btn-lg" data-bs-toggle="modal" data-bs-target="#editEventModal">
+                      </button>
+                      <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#editEventModal">
                         <i class="bi bi-pencil-square"></i>
-                    </button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row" class="fs-4 dataTable">1</th>
-                <td class="fs-4 dataTable">Recolecciones utez</td>
-                <td class="fs-4 dataTable">Recolecciones</td>
-                <td class="fs-4 dataTable">12-12-12</td>
-                <td class="fs-4 dataTable d-flex justify-content-center">
-                    <button type="button" class="btn btn-outline-primary btn-lg w-75">
-                        <i class="bi bi-calendar4-event"></i>
-                        En ejecucion
-                    </button>
-                </td>
-                <td class="fs-4 dataTable">
-                    <button type="button" class="btn btn-outline-info btn-lg" data-bs-toggle="modal" data-bs-target="#editEventModal">
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row" class="dataTable">1</th>
+                  <td class="dataTable">Recolecciones utez</td>
+                  <td class="dataTable">Recolecciones</td>
+                  <td class="dataTable">12-12-12</td>
+                  <td class="dataTable">
+                    <div class="container-fluid justify-content-end container-sm">
+                      <button type="button" class="btn btn-outline-primary btn-md text-break text-wrap" style="width: 10rem;" data-bs-toggle="modal" data-bs-target="#statusGroupModal">
+                          <i class="bi bi-calendar4-event"></i>
+                          En ejecucion
+                      </button>
+                      <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#editEventModal">
                         <i class="bi bi-pencil-square"></i>
-                    </button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row" class="fs-4 dataTable">1</th>
-                <td class="fs-4 dataTable">Recolecciones utez</td>
-                <td class="fs-4 dataTable">Recolecciones</td>
-                <td class="fs-4 dataTable">12-12-12</td>
-                <td class="fs-4 dataTable d-flex justify-content-center">
-                    <button type="button" class="btn btn-secondary btn-lg w-75" disabled>
-                        <i class="bi bi-calendar2-check"></i>
-                        Finalizado
-                    </button>
-                </td>
-                <td class="fs-4 dataTable">
-                    <button type="button" class="btn btn-outline-info btn-lg d-none" data-bs-toggle="modal" data-bs-target="#editEventModal" disabled>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row" class="dataTable">1</th>
+                  <td class="dataTable">Recolecciones utez</td>
+                  <td class="dataTable">Recolecciones</td>
+                  <td class="dataTable">12-12-12</td>
+                  <td class="dataTable">
+                    <div class="container-fluid justify-content-end container-sm">
+                      <button type="button" class="btn btn-outline-secondary btn-md text-break text-wrap" style="width: 10rem;" data-bs-toggle="modal" data-bs-target="#statusGroupModal" disabled>
+                          <i class="bi bi-calendar2-check"></i>
+                          Finalizado
+                      </button>
+                      <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#editEventModal" disabled>
                         <i class="bi bi-pencil-square"></i>
-                    </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
       </div>
 
       <!--MODALES//////////////////////////////////////////////////////////////////////////-->
 
       <!--MODAL AGREGAR-->
       <div class="modal fade" id="addEventModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title fs-5 modalTittle" id="staticBackdropLabel">Registro de Evento</h1>
@@ -199,7 +201,7 @@
 
       <!--MODAL EDITAR-->
       <div class="modal fade" id="editEventModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title fs-5 modalTittle" id="staticBackdropLabel">Editar Evento</h1>
@@ -235,39 +237,44 @@
                </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-cancelModal" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-actionModal confirmUpdAlert">Editar</button>
+                <button type="button" class="btn btn-actionModal confirmUpdAlert" data-user="este evento">Editar</button>
               </div>
               </form>
           </div>
         </div>
       </div>
 
-      <!--MODAL VER MAS-->
-      <div class="modal fade" id="viewGroupModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+      <!--MODAL CAMBIAR ESTADO-->
+      <div class="modal fade" id="statusGroupModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5 modalTittle" id="staticBackdropLabel">Ver informacion de Administrador</h1>
+              <h1 class="modal-title fs-5 modalTittle" id="staticBackdropLabel">Cambiar estado del evento</h1>
             </div>
               <form action="">
-                <fieldset disabled>
                 <div class="modal-body">
-                  <div class="card-body">
-                    <div class="row g-3">
-                      <div class="col-6">
-                        <label for="viewColonia" class="labelModal"><small>Colonia:</small></label>
-                        <input type="text" id="viewColonia" name="viewColonia" value="Colonia" class="form-control inputModal">
+                    <div class="card-body">
+                      <div class="row">
+                        <h6 class="card-subtitle mb-2 text-body-secondary">Seleccione el nuevo estado del evento:</h6>
                       </div>
-                      <div class="col-6">
-                        <label for="viewMunicipio" class="labelModal"><small>Municipio:</small></label>
-                        <input type="text" id="viewMunicipio" name="viewMunicipio" value="Municipio" class="form-control inputModal">
+                      <div class="row">
+                          <div class="col d-flex justify-content-start">
+                            <div class="btn-group" role="group">
+                                <input type="radio" class="btn-check btn-md" name="vbtn-radio" id="vbtn-radio1" autocomplete="off" checked>
+                                <label class="btn btn-outline-warning" for="vbtn-radio1">Próximamente</label>
+                                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio2" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-md" for="vbtn-radio2">En ejecución</label>
+                                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio3" autocomplete="off">
+                                <label class="btn btn-outline-secondary btn-md" for="vbtn-radio3">Finalizado</label>
+                            </div>
+                        </div>
                       </div>
-                    </div>
-                 </div>
+                  </div>                
                </div>
               </fieldset>
               <div class="modal-footer">
-                <button type="button" class="btn btn-actionModal" data-bs-dismiss="modal">Salir</button>
+                <button type="button" class="btn btn-actionModal confirmStatusEventAlert">Cambiar estado</button>
+                <button type="button" class="btn btn-cancelModal" data-bs-dismiss="modal">Cancelar</button>
               </div>
               </form>
           </div>

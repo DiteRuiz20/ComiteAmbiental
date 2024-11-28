@@ -79,55 +79,61 @@
       </nav>
 
       <!--Tabla de registros de administradores de grupo-->
-      <div class="table-responsive m-5">
-        <table class="table table-hover align-middle caption-top table-striped">
+      <div class="container-fluid">
+        <div class="table-responsive table-responsive-sm">
+          <table class="table table-hover align-middle caption-top table-striped table-sm">
             <caption class="fs-4">Lista de miembros</caption>
             <thead class="align-middle">
               <tr>
-                <th scope="col" class="fs-3 headersTable">#</th>
-                <th scope="col" class="fs-3 headersTable">Nombre</th>
-                <th scope="col" class="fs-3 headersTable">Apellidos</th>
-                <th scope="col" class="fs-3 headersTable">Nombre de usuario</th>
-                <th scope="col" class="fs-3 headersTable">Acciones</th>
+                <th scope="col" class="headersTable">#</th>
+                <th scope="col" class="headersTable">Nombre</th>
+                <th scope="col" class="headersTable">Apellidos</th>
+                <th scope="col" class="headersTable">Nombre de usuario</th>
+                <th scope="col" class="headersTable">Acciones</th>
               </tr>
             </thead>
             <tbody class="table-group-divider text-dark">
               <tr>
-                <th scope="row" class="fs-4 dataTable">1</th>
-                <td class="fs-4 dataTable">Valeria</td>
-                <td class="fs-4 dataTable">Ventura Gil</td>
-                <td class="fs-4 dataTable">VenturaAST</td>
-                <td class="fs-4 dataTable">
-                    <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#viewUserModal">
+                <th scope="row" class="dataTable">1</th>
+                <td class="dataTable">Valeria</td>
+                <td class="dataTable">Ventura Gil</td>
+                <td class="dataTable">VenturaAST</td>
+                <td class="dataTable">
+                  <div class="container-fluid justify-content-end container-sm">
+                    <button type="button" class="btn btn-outline-primary btn-sm text-break text-wrap" style="width: 4rem;" data-bs-toggle="modal" data-bs-target="#viewUserModal">
                         <i class="bi bi-eye"></i>
                     </button>
-                    <button type="button" class="btn btn-outline-info btn-lg" data-bs-toggle="modal" data-bs-target="#editUserModal">
+                    <button type="button" class="btn btn-outline-info btn-sm text-break text-wrap" style="width: 4rem;" data-bs-toggle="modal" data-bs-target="#editUserModal">
                         <i class="bi bi-pencil-square"></i>
                     </button>
-                    <button type="button" class="btn btn-outline-danger btn-lg confirmHabStatusAlert" data-user="este Miembro">
+                    <button type="button" class="btn btn-outline-danger confirmHabStatusAlert btn-sm text-break text-wrap" style="width: 4rem;" data-user="este Miembro">
                       <i class="bi bi-person-dash"></i>
                     </button>
+                  </div>
                 </td>
               </tr>
               <tr>
-                <th scope="row" class="fs-4 dataTable">2</th>
-                <td class="fs-4 dataTable">Astrid</td>
-                <td class="fs-4 dataTable">Ventura Gil</td>
-                <td class="fs-4 dataTable">ASTvg</td>
-                <td class="fs-4 dataTable">
-                    <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#viewUserModal">
+                <th scope="row" class="dataTable">2</th>
+                <td class="dataTable">Astrid</td>
+                <td class="dataTable">Ventura Gil</td>
+                <td class="dataTable">ASTvg</td>
+                <td class="dataTable">
+                  <div class="container-fluid justify-content-end container-sm">
+                    <button type="button" class="btn btn-outline-primary btn-sm text-break text-wrap" style="width: 4rem;" data-bs-toggle="modal" data-bs-target="#viewUserModal">
                         <i class="bi bi-eye"></i>
                     </button>
-                    <button type="button" class="btn btn-outline-info btn-lg" data-bs-toggle="modal" data-bs-target="#editUserModal">
+                    <button type="button" class="btn btn-outline-info btn-sm text-break text-wrap" style="width: 4rem;" data-bs-toggle="modal" data-bs-target="#editUserModal">
                         <i class="bi bi-pencil-square"></i>
                     </button>
-                    <button type="button" class="btn btn-outline-success btn-lg confirmDesStatusAlert" data-user="este Miembro">
+                    <button type="button" class="btn btn-outline-success confirmDesStatusAlert btn-sm text-break text-wrap" style="width: 4rem;" data-user="este Miembro">
                       <i class="bi bi-person-check"></i>
                     </button>
+                  </div>
                 </td>
               </tr>
             </tbody>
           </table>
+        </div>
       </div>
 
       <!--MODALES//////////////////////////////////////////////////////////////////////////-->
@@ -211,7 +217,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-cancelModal" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" id="" class="btn btn-actionModal confirmUpdAlert">Actualizar</button>
+                        <button type="button" id="" class="btn btn-actionModal confirmUpdAlert" data-user="este Miembro">Actualizar</button>
                     </div>
                 </form>
             </div>

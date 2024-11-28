@@ -7,6 +7,7 @@ $(document).ready(function(){
             text: "No podra eliminarlo, solo cambiar su estado",
             icon: "info",
             showCancelButton: true,
+            cancelButtonText: "Cancelar",
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Si Registrarlo!"
@@ -25,11 +26,13 @@ $(document).ready(function(){
 // --------------CONFIRMACION DE ACTUALIZACIONES
 $(document).ready(function(){
     $('.confirmUpdAlert').click(function(){
+        let userName = $(this).data('user');
         Swal.fire({
-            title: "Confirmar actualizacion?",
+            title: `Confirmar actualizacion de ${userName}?`,
             text: "Puede volver a editar los datos despues",
             icon: "question",
             showCancelButton: true,
+            cancelButtonText: "Cancelar",
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Si Actualizar!"
@@ -55,6 +58,7 @@ $(document).ready(function(){
             text: "Puede cambiar el estado después",
             icon: "warning",
             showCancelButton: true,
+            cancelButtonText: "Cancelar",
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Sí, Deshabilitar!"
@@ -80,6 +84,7 @@ $(document).ready(function(){
             text: "Puede cambiar el estado después",
             icon: "warning",
             showCancelButton: true,
+            cancelButtonText: "Cancelar",
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Sí, Habilitar!"
@@ -96,3 +101,27 @@ $(document).ready(function(){
 });
 
 
+// CAMBIAR ESTADO DE EVENTOS
+$(document).ready(function(){
+    $('.confirmStatusEventAlert').click(function(){
+
+        Swal.fire({
+            title: "¿Cambiar estado de este evento",
+            text: "Puede cambiar el estado después",
+            icon: "warning",
+            showCancelButton: true,
+            cancelButtonText: "Cancelar",
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, cambiar!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Estado actualizado!",
+                    text: "Se cambio el estado correctamente.",
+                    icon: "success"
+                });
+            }
+        });
+    });
+});
