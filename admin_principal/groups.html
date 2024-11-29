@@ -79,8 +79,8 @@
       </nav>
 
       <!--Tabla de registros de administradores de grupo-->
-      <div class="table-responsive m-5">
-        <table class="table table-hover align-middle caption-top table-striped">
+      <div class="table-responsive table-responsive-md table-responsive-sm mt-5">
+        <table class="table table-hover align-middle caption-top table-striped table-sm">
             <caption class="fs-4">Lista de grupos</caption>
             <thead class="align-middle">
               <tr>
@@ -90,36 +90,20 @@
                 <th scope="col" class="fs-3 headersTable">Acciones</th>
               </tr>
             </thead>
-            <tbody class="table-group-divider text-dark">
+            <tbody class="table-group-divider text-dark" id="tbodyLoad">
               <tr>
-                <th scope="row" class="fs-4 dataTable">1</th>
-                <td class="fs-4 dataTable">ECO-friends</td>
-                <td class="fs-4 dataTable">Nombre admin 1</td>
-                <td class="fs-4 dataTable">
-                    <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#viewGroupModal">
+                <th scope="row" class=" dataTable">1</th>
+                <td class="dataTable">ECO-friends</td>
+                <td class=" dataTable">Aun no cuenta con un admin</td>
+                <td class=" dataTable">
+                    <button type="button" class="btn btn-outline-primary btn-sm text-break text-wrap rounded-5" style="width: 4rem;" data-bs-toggle="modal" data-bs-target="#viewGroupModal">
                         <i class="bi bi-eye"></i>
                     </button>
-                    <button type="button" class="btn btn-outline-info btn-lg" data-bs-toggle="modal" data-bs-target="#editGroupModal">
+                    <button type="button" class="btn btn-outline-info btn-sm text-break text-wrap rounded-5" style="width: 4rem;" data-bs-toggle="modal" data-bs-target="#editGroupModal">
                         <i class="bi bi-pencil-square"></i>
                     </button>
-                    <button type="button" class="btn btn-outline-danger btn-lg confirmHabStatusAlert" data-user="este Grupo">
+                    <button type="button" class="btn btn-outline-danger confirmHabStatusAlert btn-sm text-break text-wrap rounded-5" style="width: 4rem;" data-user="este Grupo">
                       <i class="fa-solid fa-users-slash"></i>
-                    </button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row" class="fs-4 dataTable">2</th>
-                <td class="fs-4 dataTable">PETA</td>
-                <td class="fs-4 dataTable">Nombre admin 2</td>
-                <td class="fs-4 dataTable">
-                    <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#viewGroupModal">
-                        <i class="bi bi-eye"></i>
-                    </button>
-                    <button type="button" class="btn btn-outline-info btn-lg" data-bs-toggle="modal" data-bs-target="#editGroupModal">
-                        <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <button type="button" class="btn btn-outline-success btn-lg confirmDesStatusAlert" data-user="este Grupo">
-                      <i class="fa-solid fa-users"></i>
                     </button>
                 </td>
               </tr>
@@ -151,20 +135,6 @@
                       <div class="col-6">
                         <label for="addGroupNeighborhood" class="labelModal"><small>Colonia:</small></label>
                         <input type="text" id="addGroupNeighborhood" name="addGroupNeighborhood" placeholder="Colonia" class="form-control inputModal">
-                      </div>
-                      <div class="col-6">
-                          <label for="addGroupAdmin" class="labelModal"><small>Administrador:</small></label>
-                          <select class="form-select inputModal" name="editAdmin" id="editAdmin">
-                            <option class="inputModal" value="admin1">
-                                admin 1
-                            </option>
-                            <option value="admin2" class="inputModal">
-                                admin 2
-                            </option>
-                            <option value="admin3" class="inputModal">
-                                admin3
-                            </option>
-                          </select>
                       </div>
                     </div>
                  </div>
