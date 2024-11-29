@@ -101,7 +101,7 @@
 }
 
 /* USERS */
-/* ACCEPT EVENT BUTTON */
+/* ACCEPT EVENT BUTTON 
 .confirmEventbutton {
     padding: 15px 25px;
     border: unset;
@@ -140,8 +140,8 @@
   .confirmEventbutton:hover::before {
     width: 100%;
   }
-
-  /* DECLINE EVENT BUTTON */
+*/
+  /* DECLINE EVENT BUTTON 
 .declineEventbutton {
     padding: 15px 25px;
     border: unset;
@@ -180,4 +180,87 @@
   .declineEventbutton:hover::before {
     width: 100%;
   }
+*/
+
+.confirmEventbutton {
+  padding: 1.3em 3em;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: #88C273;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+
+.confirmEventbutton:hover {
+  background-color: #6dac57;
+  box-shadow: 0px 15px 20px #99c688;
+  color: #fff;
+  transform: translateY(-7px);
+}
+
+.confirmEventbutton:active {
+  transform: translateY(-1px);
+}
+
+.declineEventbutton {
+  padding: 1.3em 3em;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: #c5c2c3;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+
+.declineEventbutton:hover {
+  background-color: #b5b0b1;
+  box-shadow: 0px 15px 20px #bab5b6;
+  color: #fff;
+  transform: translateY(-7px);
+}
+
+.declineEventbutton:active {
+  transform: translateY(-1px);
+}
+
+/* CARDS FOR EVENTS - USERS------------------------- */
+.cardEvent-text{
+  color: #1A3636;
+  font-weight: 200;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.cardEvent-text-sub{
+  color: #0c5f44;
+  font-weight: 400;
+  font-family: monospace;
+}
+.cardEvent:hover{
+  background-color: #e0f8da;
+  transform: translateY(-5px);
+}
+
+.cardEvent:hover .icon-card,
+.cardEvent:hover .card-title{
+  color: #0c5f44 !important;
+}
+
+.cardEvent{
+  width: 22rem;
+  height: 18rem;
+  transition: all 0.3s;
+}
+
 

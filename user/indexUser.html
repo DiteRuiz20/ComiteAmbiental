@@ -3,12 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Eventos </title>
+    <title>Eventos asignados</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../utils/styles.css">
     <script src="https://kit.fontawesome.com/d137dd6862.js" crossorigin="anonymous"></script>
-
   </head>
   <body>
 
@@ -16,9 +15,9 @@
     <nav class="navbar navbar-expand-lg navbarMenu">
         <div class="container-fluid">
           <a class="navbar-brand text-light" href="#">
-            <img src="../icons/ECO_VIDA_icon.png" alt="" class="principal-icon" style= "width: 3em; height: 3em;">
+            <img src="../icons/ECO_VIDA_icon.png" alt="" class="principal-icon" style="width: 3em; height: 3em;">
             COMITE AMBIENTAL 
-            </a>
+          </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -64,78 +63,116 @@
             </ul>
           </div>
         </div>
-      </nav>
+    </nav>
 
-      <!-- tabla de eventos -->
-      <table class="table table-borderless">
-        <tbody>
-          <tr>
-            <td>
-                <div class="card shadow ms-4 mt-4 border-0" >
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col">
-                          <h5 class="card-title">Titulo del evento</h5>
-                        </div>
-                        <div class="col">
-                          <span class="badge rounded-pill text-bg-primary">En ejecucion</span>
-                        </div>
-                      </div>
-                     
-                      
-                      <div class="row">
-                        <div class="col">
-                            <h6 class="card-subtitle mb-2 text-body-secondary">Fecha:</h6>
-                            <h6 class="card-subtitle mb-2 text-body-secondary">11/21/2024</h6>
-                        </div>
-                      </div>
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Tipo de evento:</li>
-                        <li class="list-group-item">Tipo 1</li>
-                      </ul>
-                    </div>
-                    <div class="card-footer">
-                        <form action="">
-                            <div class="row">
-                              <div class="col">
-                                <button type="button" class="btn btn-outline-primary">Confirmar Asistencia</button>
-                              </div>
-                              <div class="col">
-                                <button type="button" class="btn btn-outline-secondary">Denegar Asistencia</button>
-                              </div>
-                            </div>
-                        </form>
-                    </div>
-                  </div>
-            </td>
-            <td>
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                      <h5 class="card-title">Titulo del evento</h5>
-                      <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="#" class="card-link">Card link</a>
-                      <a href="#" class="card-link">Another link</a>
-                    </div>
-                  </div>
-            </td>
-            <td>
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                      <h5 class="card-title">Titulo del evento</h5>
-                      <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="#" class="card-link">Card link</a>
-                      <a href="#" class="card-link">Another link</a>
-                    </div>
-                  </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <!--MODALES//////////////////////////////////////////////////////////////////////////-->
-
-      <!--MODAL AGREGAR-->
+    <div class="container p-3">
+      <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div class="card cardEvent text-center border-0 shadow rounded-5 p-3 mx-auto">
+            <div class="card-body ms-0" id="infoEventU">
+              <div class="row justify-content-start">
+                <div class="col-4 col-sm-auto icon-card" style="color: #1A3636;">
+                  <i class="fa-solid fa-leaf"></i>
+                </div>
+                <div class="col-4 col-sm-auto">
+                  <h5 class="card-title modalTittle" id="eventTitleU" name="eventTitleU" >Titulo del evento</h5>
+                </div>
+              </div>
+              <div class="row justify-content-start">
+                <div class="col-4 col-sm-auto">
+                  <span class="badge rounded-pill text-bg-primary" id="eventStatusU" name="eventStatusU">En ejecucion</span>
+                </div>
+              </div>
+              <div class="row justify-content-start mt-3">
+                <div class="col-6 col-sm-auto text-start">
+                  <h6 class="card-subtitle mb-2 cardEvent-text-sub">Fecha:</h6>
+                  <h6 class="card-subtitle mb-2 cardEvent-text-sub">Tipo de evento:</h6>
+                </div>
+                <div class="col-6 col-sm-auto text-start">
+                  <h6 class="card-subtitle mb-2 cardEvent-text" id="eventDateU" name="eventDateU">11/28/2024</h6>
+                  <h6 class="card-subtitle mb-2 cardEvent-text" id="evetnTypeU" name="evetnTypeU">Recoleccion</h6>
+                </div>
+              </div>
+              <div class="row justify-content-center mt-5">
+                <div class="col-6">
+                  <button type="button" class="confirmEventbutton" id="aceptEventU">Aceptar</button>
+                </div>
+                <div class="col-6">
+                  <button type="button" class="declineEventbutton" id="declineEventU">Declinar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div class="card cardEvent text-center border-0 shadow rounded-5 p-3 mx-auto">
+            <div class="card-body ms-0" id="infoEventU">
+              <div class="row justify-content-start">
+                <div class="col-4 col-sm-auto icon-card" style="color: #1A3636;">
+                  <i class="fa-solid fa-leaf"></i>
+                </div>
+                <div class="col-4 col-sm-auto">
+                  <h5 class="card-title modalTittle">Titulo del evento</h5>
+                </div>
+              </div>
+              <div class="row justify-content-start">
+                <div class="col-4 col-sm-auto">
+                  <span class="badge rounded-pill text-bg-warning">Proximamente</span>
+                </div>
+              </div>
+              <div class="row justify-content-start mt-3">
+                <div class="col-6 col-sm-auto text-start">
+                  <h6 class="card-subtitle mb-2 cardEvent-text-sub">Fecha:</h6>
+                  <h6 class="card-subtitle mb-2 cardEvent-text-sub">Tipo de evento:</h6>
+                </div>
+                <div class="col-6 col-sm-auto text-start">
+                  <h6 class="card-subtitle mb-2 cardEvent-text">11/28/2024</h6>
+                  <h6 class="card-subtitle mb-2 cardEvent-text">Recoleccion</h6>
+                </div>
+              </div>
+              <div class="row justify-content-center mt-5">
+                <div class="col-6">
+                  <button type="button" class="confirmEventbutton">Aceptar</button>
+                </div>
+                <div class="col-6">
+                  <button type="button" class="declineEventbutton">Declinar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div class="card cardEvent text-center border-0 shadow rounded-5 p-3 mx-auto">
+            <div class="card-body ms-0" id="infoEventU">
+              <div class="row justify-content-start">
+                <div class="col-4 col-sm-auto icon-card" style="color: #1A3636;">
+                  <i class="fa-solid fa-leaf"></i>
+                </div>
+                <div class="col-4 col-sm-auto">
+                  <h5 class="card-title modalTittle">Titulo del evento</h5>
+                </div>
+              </div>
+              <div class="row justify-content-start">
+                <div class="col-4 col-sm-auto">
+                  <span class="badge rounded-pill text-bg-secondary">Finalizado</span>
+                </div>
+              </div>
+              <div class="row justify-content-start mt-3">
+                <div class="col-6 col-sm-auto text-start">
+                  <h6 class="card-subtitle mb-2 cardEvent-text-sub">Fecha:</h6>
+                  <h6 class="card-subtitle mb-2 cardEvent-text-sub">Tipo de evento:</h6>
+                </div>
+                <div class="col-6 col-sm-auto text-start">
+                  <h6 class="card-subtitle mb-2 cardEvent-text">11/28/2024</h6>
+                  <h6 class="card-subtitle mb-2 cardEvent-text">Recoleccion</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
