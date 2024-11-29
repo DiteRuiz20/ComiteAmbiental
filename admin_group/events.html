@@ -81,8 +81,7 @@
       </nav>
 
       <!--Tabla de registros de administradores de grupo-->
-      <div class="container-fluid">
-        <div class="table-responsive table-responsive-sm">
+      <div class="table-responsive table-responsive-md table-responsive-sm mt-5">
           <table class="table table-hover align-middle caption-top table-striped table-sm">
               <caption class="fs-4">Lista de eventos</caption>
               <thead class="align-middle">
@@ -94,22 +93,20 @@
                   <th scope="col" class="headersTable">Acciones</th>
                 </tr>
               </thead>
-              <tbody class="table-group-divider text-dark">
+              <tbody class="table-group-divider text-dark" id="tbodyLoad">
                 <tr>
                   <th scope="row" class="dataTable">1</th>
                   <td class="dataTable">Recolecciones utez</td>
                   <td class="dataTable">Recolecciones</td>
                   <td class="dataTable">12-12-12</td>
                   <td class="dataTable">
-                    <div class="container-fluid justify-content-end container-sm">
-                      <button type="button" class="btn btn-outline-warning btn-md text-break text-wrap" style="width: 10rem;" data-bs-toggle="modal" data-bs-target="#statusGroupModal">
+                      <button type="button" class="btn btn-outline-warning btn-md text-break text-wrap rounded-5" style="width: 10rem;" data-bs-toggle="modal" data-bs-target="#statusGroupModal">
                         <i class="bi bi-calendar4-week"></i>
                         Proximamente
                       </button>
-                      <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#editEventModal">
+                      <button type="button" class="btn btn-outline-info rounded-5" data-bs-toggle="modal" data-bs-target="#editEventModal">
                         <i class="bi bi-pencil-square"></i>
                       </button>
-                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -118,15 +115,13 @@
                   <td class="dataTable">Recolecciones</td>
                   <td class="dataTable">12-12-12</td>
                   <td class="dataTable">
-                    <div class="container-fluid justify-content-end container-sm">
-                      <button type="button" class="btn btn-outline-primary btn-md text-break text-wrap" style="width: 10rem;" data-bs-toggle="modal" data-bs-target="#statusGroupModal">
+                      <button type="button" class="btn btn-outline-primary btn-md text-break text-wrap rounded-5" style="width: 10rem;" data-bs-toggle="modal" data-bs-target="#statusGroupModal">
                           <i class="bi bi-calendar4-event"></i>
                           En ejecucion
                       </button>
-                      <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#editEventModal">
+                      <button type="button" class="btn btn-outline-info rounded-5" data-bs-toggle="modal" data-bs-target="#editEventModal">
                         <i class="bi bi-pencil-square"></i>
                       </button>
-                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -135,20 +130,17 @@
                   <td class="dataTable">Recolecciones</td>
                   <td class="dataTable">12-12-12</td>
                   <td class="dataTable">
-                    <div class="container-fluid justify-content-end container-sm">
-                      <button type="button" class="btn btn-outline-secondary btn-md text-break text-wrap" style="width: 10rem;" data-bs-toggle="modal" data-bs-target="#statusGroupModal" disabled>
+                      <button type="button" class="btn btn-outline-secondary btn-md text-break text-wrap rounded-5" style="width: 10rem;" data-bs-toggle="modal" data-bs-target="#statusGroupModal" disabled>
                           <i class="bi bi-calendar2-check"></i>
                           Finalizado
                       </button>
-                      <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#editEventModal" disabled>
+                      <button type="button" class="btn btn-outline-info rounded-5" data-bs-toggle="modal" data-bs-target="#editEventModal" disabled>
                         <i class="bi bi-pencil-square"></i>
                       </button>
-                    </div>
                   </td>
                 </tr>
               </tbody>
             </table>
-        </div>
       </div>
 
       <!--MODALES//////////////////////////////////////////////////////////////////////////-->
