@@ -1,7 +1,9 @@
 package utez.edu.mx.environmentcommittee.modules.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import utez.edu.mx.environmentcommittee.modules.user.DTO.UserDTO;
@@ -9,6 +11,7 @@ import utez.edu.mx.environmentcommittee.utils.CustomResponseEntity;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,11 +23,19 @@ public class UserService {
     @Autowired
     private CustomResponseEntity customResponseEntity;
 
-    // Método para transformar una entidad User a un DTO
+    private final PasswordEncoder passwordEncoder;
+
+    public UserService(UserRepository userRepository, CustomResponseEntity customResponseEntity, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.customResponseEntity = customResponseEntity;
+        this.passwordEncoder = passwordEncoder;
+    }
+
     private UserDTO transformUserToDTO(User u) {
         return new UserDTO(
                 u.getId(),
                 u.getName(),
+                u.getLastname(),
                 u.getPhone(),
                 u.getEmail(),
                 u.getUsername(),
@@ -32,7 +43,6 @@ public class UserService {
         );
     }
 
-    // ENCONTRAR TODOS LOS USUARIOS
     @Transactional(readOnly = true)
     public ResponseEntity<?> findAll() {
         List<User> users = userRepository.findAll();
@@ -40,7 +50,6 @@ public class UserService {
             return customResponseEntity.getOkResponse("No se encontraron usuarios", "OK", 200, null);
         }
 
-        // Convertir la lista de User a UserDto
         List<UserDTO> userDtos = users.stream()
                 .map(this::transformUserToDTO)
                 .collect(Collectors.toList());
@@ -48,20 +57,17 @@ public class UserService {
         return customResponseEntity.getOkResponse("Usuarios encontrados", "OK", 200, userDtos);
     }
 
-    // BUSCAR USUARIO POR ID
     @Transactional(readOnly = true)
     public ResponseEntity<?> findById(long id) {
-        User user = userRepository.findById(id);
-        if (user == null) {
+        Optional<User> user = Optional.ofNullable(userRepository.findById(id));
+        if (user.isEmpty()) {
             return customResponseEntity.get404Response();
         }
 
-        // Transformar el usuario a DTO
-        UserDTO userDto = transformUserToDTO(user);
+        UserDTO userDto = transformUserToDTO(user.get());
         return customResponseEntity.getOkResponse("Usuario encontrado", "OK", 200, userDto);
     }
 
-    // BUSCAR USUARIOS POR ID DE ROL
     @Transactional(readOnly = true)
     public ResponseEntity<?> findByRoleId(long roleId) {
         List<User> users = userRepository.findByRoleId(roleId);
@@ -69,7 +75,6 @@ public class UserService {
             return customResponseEntity.getOkResponse("No se encontraron usuarios para este rol", "OK", 200, null);
         }
 
-        // Transformar usuarios a DTOs
         List<UserDTO> userDtos = users.stream()
                 .map(this::transformUserToDTO)
                 .collect(Collectors.toList());
@@ -77,19 +82,23 @@ public class UserService {
         return customResponseEntity.getOkResponse("Usuarios encontrados", "OK", 200, userDtos);
     }
 
-    // GUARDAR USUARIO
     @Transactional(rollbackFor = {SQLException.class, Exception.class})
     public ResponseEntity<?> save(User user) {
         try {
+            if (userRepository.existsByEmail(user.getEmail())) {
+                return ResponseEntity.status(HttpStatus.CONFLICT)
+                        .body("El correo electrónico ya está registrado");
+            }
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
-            return customResponseEntity.getOkResponse("Usuario registrado exitosamente", "CREADO", 201, null);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Usuario registrado exitosamente");
         } catch (Exception e) {
             e.printStackTrace();
-            return customResponseEntity.get400Response();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al registrar el usuario");
         }
     }
 
-    // ACTUALIZAR USUARIO
     @Transactional(rollbackFor = {SQLException.class, Exception.class})
     public ResponseEntity<?> update(User user) {
         User existingUser = userRepository.findById(user.getId());
@@ -98,21 +107,41 @@ public class UserService {
         }
 
         try {
-            // Mantener la contraseña original
-            user.setPassword(existingUser.getPassword());
-            userRepository.save(user);
+            // Validar y asignar campos requeridos
+            existingUser.setName(user.getName());
+            existingUser.setLastname(user.getLastname());
+            existingUser.setPhone(user.getPhone());
+            existingUser.setEmail(user.getEmail());
+            existingUser.setUsername(user.getUsername()); // Aseguramos que el username se asigne
+
+            // Validar y asignar rol
+            if (user.getRole() != null && user.getRole().getId() > 0) {
+                existingUser.setRole(user.getRole());
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("El rol es obligatorio y debe contener un ID válido.");
+            }
+
+            // Si la contraseña no está vacía, actualizarla
+            if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+                existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
+            }
+
+            userRepository.save(existingUser);
             return customResponseEntity.getOkResponse("Usuario actualizado correctamente", "OK", 200, null);
         } catch (Exception e) {
             e.printStackTrace();
-            return customResponseEntity.get400Response();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al actualizar el usuario.");
         }
     }
 
-    // ELIMINAR USUARIO
+
+
     @Transactional(rollbackFor = {SQLException.class, Exception.class})
     public ResponseEntity<?> deleteById(long id) {
-        User user = userRepository.findById(id);
-        if (user == null) {
+        Optional<User> user = Optional.ofNullable(userRepository.findById(id));
+        if (user.isEmpty()) {
             return customResponseEntity.get404Response();
         }
 

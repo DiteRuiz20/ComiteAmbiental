@@ -16,14 +16,14 @@ public interface GroupRepository extends JpaRepository<Group, Long> {
     Group findById(long id);
 
     // SAVE/UPDATE GROUP
-    Group save(Group group);
+    Group save(Group groupss);
 
     // DELETE GROUP
     @Modifying
-    @Query(value = "DELETE FROM group WHERE id = :id", nativeQuery = true)
+    @Query(value = "DELETE FROM groupss WHERE id = :id", nativeQuery = true)
     void deleteById(@Param("id") long id);
 
     // FIND GROUP BY MUNICIPALITY
-    @Query(value = "SELECT * FROM group WHERE municipality = :municipality", nativeQuery = true)
+    @Query(value = "SELECT * FROM groupss WHERE municipality = :municipality", nativeQuery = true)
     List<Group> findByMunicipality(@Param("municipality") String municipality);
 }

@@ -8,44 +8,37 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/user")
 @CrossOrigin(origins = {"*"})
 public class UserController {
-        @Autowired
-        private UserService userService;
 
-        // ENDPOINTS
+    @Autowired
+    private UserService userService;
 
-        // BRING ALL USERS
-        @GetMapping("")
-        public ResponseEntity<?> findAll() {
-            return userService.findAll();
-        }
-
-        // BRING USERS BY ROLE ID
-        @GetMapping("/role/{roleId}")
-        public ResponseEntity<?> findByRoleId(@PathVariable("roleId") long roleId) {
-            return userService.findByRoleId(roleId);
-        }
-
-        // BRING USER BY ID
-        @GetMapping("/{id}")
-        public ResponseEntity<?> findById(@PathVariable("id") long id) {
-            return userService.findById(id);
-        }
-
-        // SAVE USER
-        @PostMapping("")
-        public ResponseEntity<?> save(@RequestBody User user) {
-            return userService.save(user);
-        }
-
-        // UPDATE USER
-        @PutMapping("")
-        public ResponseEntity<?> update(@RequestBody User user) {
-            return userService.update(user);
-        }
-
-        // DELETE USER
-        @DeleteMapping("/{id}")
-        public ResponseEntity<?> deleteById(@PathVariable("id") long id) {
-            return userService.deleteById(id);
-        }
+    @GetMapping("")
+    public ResponseEntity<?> findAll() {
+        return userService.findAll();
     }
+
+    @GetMapping("/role/{roleId}")
+    public ResponseEntity<?> findByRoleId(@PathVariable("roleId") long roleId) {
+        return userService.findByRoleId(roleId);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findById(@PathVariable("id") long id) {
+        return userService.findById(id);
+    }
+
+    @PostMapping("")
+    public ResponseEntity<?> save(@RequestBody User user) {
+        return userService.save(user);
+    }
+
+    @PutMapping("")
+    public ResponseEntity<?> update(@RequestBody User user) {
+        return userService.update(user);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable("id") long id) {
+        return userService.deleteById(id);
+    }
+}

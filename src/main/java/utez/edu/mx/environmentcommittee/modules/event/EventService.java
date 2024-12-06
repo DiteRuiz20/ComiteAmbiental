@@ -11,83 +11,81 @@ import java.util.List;
 
 @Service
 public class EventService {
-        @Autowired
-        private EventRepository eventRepository;
+    @Autowired
+    private EventRepository eventRepository;
 
-        @Autowired
-        private CustomResponseEntity customResponseEntity;
+    @Autowired
+    private CustomResponseEntity customResponseEntity;
 
-        // BRING ALL EVENTS
-        @Transactional(readOnly = true)
-        public ResponseEntity<?> findAll() {
-            List<Event> events = eventRepository.findAll();
-            if (events.isEmpty()) {
-                return customResponseEntity.getOkResponse("No events found", "OK", 200, null);
-            }
-            return customResponseEntity.getOkResponse("Events found", "OK", 200, events);
-        }
+    // BRING ALL EVENTS
+    public ResponseEntity<?> findAll() {
+        List<Event> events = eventRepository.findAll();
+        return customResponseEntity.getOkResponse("Events found", "OK", 200, events);
+    }
 
-        // BRING EVENT BY ID
-        @Transactional(readOnly = true)
-        public ResponseEntity<?> findById(long id) {
-            Event event = eventRepository.findById(id);
-            if (event == null) {
-                return customResponseEntity.get404Response();
-            }
-            return customResponseEntity.getOkResponse("Event found", "OK", 200, event);
-        }
+    // BRING EVENT BY ID
+    public ResponseEntity<?> findById(long id) {
+        Event event = eventRepository.findById(id).orElse(null);
+        return event == null
+                ? customResponseEntity.get404Response()
+                : customResponseEntity.getOkResponse("Event found", "OK", 200, event);
+    }
 
-        // FIND EVENTS BY STATUS
-        @Transactional(readOnly = true)
-        public ResponseEntity<?> findByStatus(String status) {
-            List<Event> events = eventRepository.findByStatus(status);
-            if (events.isEmpty()) {
-                return customResponseEntity.getOkResponse("No events found with the given status", "OK", 200, null);
-            }
-            return customResponseEntity.getOkResponse("Events found", "OK", 200, events);
-        }
+    // FIND EVENTS BY STATUS
+    public ResponseEntity<?> findByStatus(String status) {
+        List<Event> events = eventRepository.findByStatus(status);
+        return customResponseEntity.getOkResponse("Events found", "OK", 200, events);
+    }
 
-        // SAVE EVENT
-        @Transactional(rollbackFor = {SQLException.class, Exception.class})
-        public ResponseEntity<?> save(Event event) {
-            try {
-                eventRepository.save(event);
-                return customResponseEntity.getOkResponse("Event successfully registered", "CREATED", 201, null);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return customResponseEntity.get400Response();
+    // SAVE EVENT
+    @Transactional(rollbackFor = {SQLException.class, Exception.class})
+    public ResponseEntity<?> save(Event event) {
+        try {
+            // Si el estado no se envía, asignar "Próximamente" como predeterminado
+            if (event.getStatus() == null || event.getStatus().isEmpty()) {
+                event.setStatus("Próximamente");
             }
-        }
-
-        // UPDATE EVENT
-        @Transactional(rollbackFor = {SQLException.class, Exception.class})
-        public ResponseEntity<?> update(Event event) {
-            Event existingEvent = eventRepository.findById(event.getId());
-            if (existingEvent == null) {
-                return customResponseEntity.get404Response();
-            }
-            try {
-                eventRepository.save(event);
-                return customResponseEntity.getOkResponse("Event successfully updated", "OK", 200, null);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return customResponseEntity.get400Response();
-            }
-        }
-
-        // DELETE EVENT
-        @Transactional(rollbackFor = {SQLException.class, Exception.class})
-        public ResponseEntity<?> deleteById(long id) {
-            Event event = eventRepository.findById(id);
-            if (event == null) {
-                return customResponseEntity.get404Response();
-            }
-            try {
-                eventRepository.deleteById(id);
-                return customResponseEntity.getOkResponse("Event successfully deleted", "OK", 200, null);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return customResponseEntity.get400Response();
-            }
+            eventRepository.save(event);
+            return customResponseEntity.getOkResponse("Event successfully registered", "CREATED", 201, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return customResponseEntity.get400Response();
         }
     }
+
+
+    // UPDATE EVENT
+    public ResponseEntity<?> update(Event event) {
+        if (!eventRepository.existsById(event.getId())) {
+            return customResponseEntity.get404Response();
+        }
+        eventRepository.save(event);
+        return customResponseEntity.getOkResponse("Event successfully updated", "OK", 200, null);
+    }
+
+    // DELETE EVENT
+    public ResponseEntity<?> deleteById(long id) {
+        if (!eventRepository.existsById(id)) {
+            return customResponseEntity.get404Response();
+        }
+        eventRepository.deleteById(id);
+        return customResponseEntity.getOkResponse("Event successfully deleted", "OK", 200, null);
+    }
+
+    @Transactional(rollbackFor = {SQLException.class, Exception.class})
+    public ResponseEntity<?> updateStatus(long id, String status) {
+        Event existingEvent = eventRepository.findById(id).orElse(null);
+        if (existingEvent == null) {
+            return customResponseEntity.get404Response();
+        }
+        try {
+            existingEvent.setStatus(status);
+            eventRepository.save(existingEvent);
+            return customResponseEntity.getOkResponse("Event status successfully updated", "OK", 200, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return customResponseEntity.get400Response();
+        }
+    }
+
+}
