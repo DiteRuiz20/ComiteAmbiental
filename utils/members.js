@@ -132,6 +132,7 @@ const loadMember = async (id) => {
     }
 };
 
+// Actualizar usuario
 const updateMember = async () => {
     const id = document.getElementById("editUserName").dataset.memberId;
     const name = document.getElementById("editUserName").value.trim();
@@ -196,9 +197,6 @@ const updateMember = async () => {
         }
     });
 };
-
-
-
 
 // Eliminar un miembro
 const deleteMember = async (id) => {

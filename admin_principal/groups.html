@@ -15,7 +15,8 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-success">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
-          <i class="bi bi-leaf"></i> Comité Ambiental
+          <img src="../icons/ECO_VIDA_icon.png" alt="Logo" style="width: 2.5em; height: 2.5em;">
+          Comité Ambiental
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
           <span class="navbar-toggler-icon"></span>
@@ -47,39 +48,41 @@
     </div>
 
     <!-- Tabla de grupos -->
-    <div class="container mt-4">
-      <caption>Lista de grupos</caption>
-      <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-          <thead class="table-dark">
-            <tr>
-              <th>#</th>
-              <th>Nombre</th>
-              <th>Administrador</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>ECO-friends</td>
-              <td>Aún no cuenta con un administrador</td>
-              <td>
-                <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#viewGroupModal">
-                  <i class="bi bi-eye"></i>
-                </button>
-                <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#editGroupModal">
-                  <i class="bi bi-pencil"></i>
-                </button>
-                <button class="btn btn-danger btn-sm">
-                  <i class="bi bi-trash"></i>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+<div class="container mt-4">
+  <div class="table-responsive">
+    <caption>Lista de grupos</caption>
+    <table class="table table-striped align-middle mt-3">
+      <thead class="table-dark">
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Administrador</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>ECO-friends</td>
+          <td>Aún no cuenta con un administrador</td>
+          <td class="text-center">
+            <button class="btn btn-secondary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#viewGroupModal">
+              <i class="bi bi-eye"></i>
+            </button>
+            <button class="btn btn-success btn-sm me-2" data-bs-toggle="modal" data-bs-target="#editGroupModal">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-danger btn-sm">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
 
     <!-- Modal: Agregar Grupo -->
     <div class="modal fade" id="addGroupModal" tabindex="-1" aria-labelledby="addGroupModalLabel" aria-hidden="true">

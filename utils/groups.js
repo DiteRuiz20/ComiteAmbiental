@@ -1,5 +1,6 @@
 const URL = 'http://localhost:8080';
 let groupList = [];
+let adminList = []; // Variable para almacenar administradores
 
 // Obtener todos los grupos
 const findAllGroups = async () => {
@@ -11,20 +12,37 @@ const findAllGroups = async () => {
         const data = await response.json();
         groupList = data.data || [];
     } catch (error) {
-        console.error('Error fetching groups:', error);
+        console.error('Error al obtener grupos:', error);
     }
 };
 
-// Cargar la tabla de grupos
+// Obtener todos los administradores con rol 1
+const findAllAdmins = async () => {
+    try {
+        const response = await fetch(`${URL}/api/user`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+        });
+        const data = await response.json();
+
+        // Filtrar solo administradores (rol 1)
+        adminList = (data.data || []).filter(user => user.role && user.role.id === 1);
+    } catch (error) {
+        console.error('Error al obtener administradores:', error);
+    }
+};
+
+// Cargar la tabla de grupos con administradores asignados
 const loadTable = async () => {
     await findAllGroups();
+    await findAllAdmins(); // Asegurar que se tienen los administradores disponibles
     const tbody = document.querySelector("tbody");
     tbody.innerHTML = groupList.length
         ? groupList.map((group, index) => `
             <tr>
                 <th>${index + 1}</th>
                 <td>${group.name}</td>
-                <td>${group.admin ? group.admin.name : 'Aún no cuenta con un administrador'}</td>
+                <td>${group.admin ? `${group.admin.name} ${group.admin.lastname}` : 'Aún no cuenta con un administrador'}</td>
                 <td>
                     <button class="btn btn-secondary btn-sm" onclick="viewGroup(${group.id})" data-bs-toggle="modal" data-bs-target="#viewGroupModal">
                         <i class="bi bi-eye"></i>
@@ -48,7 +66,7 @@ const saveGroup = async () => {
     const neighborhood = document.getElementById("addGroupNeighborhood").value.trim();
     const adminId = document.getElementById("addAdminGroup").value;
 
-    if (!name || !municipio || !neighborhood) {
+    if (!name || !municipio || !neighborhood || !adminId) {
         return Swal.fire("Error", "Por favor, completa todos los campos.", "error");
     }
 
@@ -68,10 +86,6 @@ const saveGroup = async () => {
 
         if (response.ok) {
             Swal.fire("Registrado", "El grupo fue registrado exitosamente.", "success");
-            // Vaciar los campos del formulario
-            document.getElementById("addGroupName").value = "";
-            document.getElementById("addGroupMunicipio").value = "";
-            document.getElementById("addGroupNeighborhood").value = "";
             await loadTable();
             bootstrap.Modal.getInstance(document.getElementById("addGroupModal")).hide();
         } else {
@@ -85,6 +99,7 @@ const saveGroup = async () => {
 // Cargar datos de un grupo en el modal de edición
 const loadGroup = async (id) => {
     try {
+        await findAllAdmins(); // Asegurarse de tener los administradores antes de cargar
         const response = await fetch(`${URL}/api/group/${id}`);
         const data = await response.json();
         const group = data.data;
@@ -94,11 +109,16 @@ const loadGroup = async (id) => {
             document.getElementById("editGroupMunicipio").value = group.municipality;
             document.getElementById("editGroupNeighborhood").value = group.neighborhood;
 
-            // Cargar el administrador actual en el select
-            document.getElementById("editAdmin").innerHTML = `<option value="${group.admin?.id || ''}" selected>${group.admin?.name || 'Sin asignar'}</option>`;
+            // Cargar administradores dinámicamente en el select y seleccionar el actual
+            const adminSelect = document.getElementById("editAdmin");
+            adminSelect.innerHTML = adminList.map(admin => `
+                <option value="${admin.id}" ${group.admin?.id === admin.id ? "selected" : ""}>
+                    ${admin.name} ${admin.lastname}
+                </option>
+            `).join("");
         }
     } catch (error) {
-        console.error("Error loading group:", error);
+        console.error("Error al cargar el grupo:", error);
     }
 };
 
@@ -141,79 +161,33 @@ const saveGroupChanges = async () => {
     }
 };
 
-// Eliminar un grupo
-const deleteGroup = async (id) => {
-    Swal.fire({
-        title: "¿Estás seguro?",
-        text: "No podrás revertir esta acción.",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Sí, eliminar",
-        cancelButtonText: "Cancelar",
-    }).then(async (result) => {
-        if (result.isConfirmed) {
-            try {
-                const response = await fetch(`${URL}/api/group/${id}`, {
-                    method: "DELETE",
-                });
-
-                if (response.ok) {
-                    Swal.fire("Eliminado", "El grupo fue eliminado exitosamente.", "success");
-                    await loadTable();
-                } else {
-                    Swal.fire("Error", "No se pudo eliminar el grupo.", "error");
-                }
-            } catch (error) {
-                Swal.fire("Error", "No se pudo eliminar el grupo.", "error");
-            }
-        }
-    });
+// Cargar administradores en el modal de "Agregar Grupo"
+const loadAdminOptions = async () => {
+    await findAllAdmins();
+    const adminSelect = document.getElementById("addAdminGroup");
+    adminSelect.innerHTML = adminList.map(admin => `
+        <option value="${admin.id}">${admin.name} ${admin.lastname}</option>
+    `).join("");
 };
 
-// Ver detalles del grupo
-const viewGroup = async (id) => {
-    try {
-        const response = await fetch(`${URL}/api/group/${id}`);
-        const data = await response.json();
-        const group = data.data;
+// Limpiar campos del modal "Agregar Grupo" al cerrarlo
+document.getElementById("addGroupModal").addEventListener("hidden.bs.modal", () => {
+    document.getElementById("addGroupName").value = "";
+    document.getElementById("addGroupMunicipio").value = "";
+    document.getElementById("addGroupNeighborhood").value = "";
+    document.getElementById("addAdminGroup").innerHTML = ""; // Limpia el select
+});
 
-        const modalBody = document.querySelector("#viewGroupModal .modal-body");
-        if (!modalBody) {
-            console.error("El modal para visualizar grupos no está configurado correctamente.");
-            return;
-        }
-
-        if (group) {
-            modalBody.innerHTML = `
-                <p><strong>Nombre:</strong> ${group.name}</p>
-                <p><strong>Municipio:</strong> ${group.municipality || 'Sin asignar'}</p>
-                <p><strong>Colonia:</strong> ${group.neighborhood || 'Sin asignar'}</p>
-            `;
-        } else {
-            modalBody.innerHTML = "<p>No se encontraron detalles para este grupo.</p>";
-        }
-    } catch (error) {
-        console.error("Error viewing group:", error);
-        Swal.fire("Error", "No se pudieron cargar los detalles del grupo.", "error");
-    }
-};
-
-// Cargar administradores en el select
-const loadAdmins = async () => {
-    try {
-        const response = await fetch(`${URL}/api/admins`);
-        const data = await response.json();
-        const admins = data.data;
-
-        const select = document.getElementById("addAdminGroup");
-        select.innerHTML = admins.map(admin => `<option value="${admin.id}">${admin.name}</option>`).join("");
-    } catch (error) {
-        console.error("Error loading admins:", error);
-    }
-};
+// Limpiar campos del modal "Editar Grupo" al cerrarlo
+document.getElementById("editGroupModal").addEventListener("hidden.bs.modal", () => {
+    document.getElementById("editGroupName").value = "";
+    document.getElementById("editGroupMunicipio").value = "";
+    document.getElementById("editGroupNeighborhood").value = "";
+    document.getElementById("editAdmin").innerHTML = ""; // Limpia el select
+});
 
 // Inicializar eventos
 document.addEventListener("DOMContentLoaded", () => {
     loadTable();
-    loadAdmins();
+    loadAdminOptions(); // Cargar los administradores al inicializar
 });

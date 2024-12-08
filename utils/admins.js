@@ -1,5 +1,6 @@
 const URL = 'http://localhost:8080';
 let adminList = [];
+let groupList = []; // Variable para almacenar los grupos
 
 // Obtener todos los administradores con rol 1
 const findAllAdmins = async () => {
@@ -14,6 +15,20 @@ const findAllAdmins = async () => {
         adminList = (data.data || []).filter(user => user.role && user.role.id === 1);
     } catch (error) {
         console.error('Error al obtener administradores:', error);
+    }
+};
+
+// Obtener todos los grupos
+const findAllGroups = async () => {
+    try {
+        const response = await fetch(`${URL}/api/group`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+        });
+        const data = await response.json();
+        groupList = data.data || [];
+    } catch (error) {
+        console.error('Error al obtener grupos:', error);
     }
 };
 
@@ -105,12 +120,24 @@ const loadAdmin = async (id) => {
             document.getElementById('editAdminLastname').value = admin.lastname;
             document.getElementById('editAdminPhone').value = admin.phone;
             document.getElementById('editAdminEmail').value = admin.email;
+            document.getElementById('editAdminUsername').value = admin.username; // Llenar campo de usuario
+            document.getElementById('editAdminPassword').value = ''; // Mantener vacío el campo de contraseña
             document.getElementById('editAdminName').dataset.adminId = id;
+
+            // Cargar los grupos disponibles en el select
+            await findAllGroups();
+            const groupSelect = document.getElementById('editAdminGroup');
+            groupSelect.innerHTML = groupList.map(group => `
+                <option value="${group.id}" ${admin.group?.id === group.id ? 'selected' : ''}>
+                    ${group.name}
+                </option>
+            `).join("");
         }
     } catch (error) {
         console.error('Error al cargar administrador:', error);
     }
 };
+
 
 // Actualizar un administrador
 const updateAdmin = async () => {
@@ -119,39 +146,60 @@ const updateAdmin = async () => {
     const lastname = document.getElementById('editAdminLastname').value.trim();
     const phone = document.getElementById('editAdminPhone').value.trim();
     const email = document.getElementById('editAdminEmail').value.trim();
+    const username = document.getElementById('editAdminUsername').value.trim();
+    const password = document.getElementById('editAdminPassword').value.trim();
     const groupId = document.getElementById('editAdminGroup').value;
 
-    if (!name || !lastname || !phone || !email || !groupId) {
-        return Swal.fire('Error', 'Por favor, completa todos los campos obligatorios.', 'error');
+    if (!name || !lastname || !phone || !email || !username || !groupId) {
+        return Swal.fire("Error", "Por favor, completa todos los campos obligatorios.", "error");
     }
 
     const updatedAdmin = {
-        id,
+        id: parseInt(id),
         name,
         lastname,
         phone,
         email,
-        role: { id: 1 }, // Rol de administrador
-        group: { id: parseInt(groupId) },
+        username,
+        password: password ? password : undefined, // Enviar solo si es necesario
+        role: { id: 1 }, // Rol fijo de administrador
+        group: { id: parseInt(groupId) }, // Grupo seleccionado
     };
 
-    try {
-        const response = await fetch(`${URL}/api/user`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updatedAdmin),
-        });
+    Swal.fire({
+        title: "¿Confirmar edición?",
+        text: "Los cambios serán guardados.",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Sí, guardar cambios",
+        cancelButtonText: "Cancelar",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            try {
+                const response = await fetch(`${URL}/api/user`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(updatedAdmin),
+                });
 
-        if (response.ok) {
-            Swal.fire('Actualizado', 'El administrador fue actualizado exitosamente.', 'success');
-            await loadAdminTable();
-            bootstrap.Modal.getInstance(document.getElementById('editAdminModal')).hide();
+                if (response.ok) {
+                    Swal.fire("Actualizado", "El administrador fue actualizado exitosamente.", "success");
+                    await loadAdminTable(); // Llama a la función correcta
+                    bootstrap.Modal.getInstance(document.getElementById("editAdminModal")).hide(); // Cerrar modal
+                } else {
+                    const errorMessage = await response.json();
+                    Swal.fire("Error", errorMessage.message || "No se pudo actualizar el administrador.", "error");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                Swal.fire("Error", "Ocurrió un problema al actualizar el administrador.", "error");
+            }
         } else {
-            Swal.fire('Error', 'No se pudo actualizar el administrador.', 'error');
+            console.log("Edición cancelada por el usuario.");
         }
-    } catch (error) {
-        Swal.fire('Error', 'Ocurrió un problema al actualizar el administrador.', 'error');
-    }
+    });
 };
 
 
@@ -187,21 +235,22 @@ const deleteAdmin = async (id) => {
 // Ver detalles del administrador
 const viewAdmin = async (id) => {
     try {
+        // Obtener información del administrador
         const response = await fetch(`${URL}/api/user/${id}`);
         const data = await response.json();
         const admin = data.data;
 
-        const modalBody = document.querySelector('#viewAdminModal .modal-body');
         if (admin) {
-            modalBody.innerHTML = `
-                <p><strong>Teléfono:</strong> ${admin.phone}</p>
-                <p><strong>Correo:</strong> ${admin.email}</p>
-            `;
-        } else {
-            modalBody.innerHTML = '<p>No se encontraron detalles para este administrador.</p>';
+            // Actualizar datos del administrador en el modal
+            document.getElementById('viewAdminPhone').textContent = admin.phone || "Sin información";
+            document.getElementById('viewAdminEmail').textContent = admin.email || "Sin información";
+
+            // Verificar si tiene un grupo asignado
+            const groupName = admin.group ? admin.group.name : "No asignado"; // Verifica si existe un grupo
+            document.getElementById('viewAdminGroup').textContent = groupName; // Mostrar el nombre del grupo
         }
     } catch (error) {
-        Swal.fire('Error', 'No se pudieron cargar los detalles del administrador.', 'error');
+        console.error('Error al cargar la información del administrador:', error);
     }
 };
 

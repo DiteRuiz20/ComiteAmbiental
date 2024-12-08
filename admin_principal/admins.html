@@ -80,16 +80,16 @@
               <td>Ventura Gil</td>
               <td>VenturaAST</td>
               <td class="text-center">
-                <button class="btn btn-secondary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#viewAdminModal">
-                  <i class="bi bi-eye"></i>
+                <button class="btn btn-secondary btn-sm me-2" onclick="viewAdmin(1)" data-bs-toggle="modal" data-bs-target="#viewAdminModal">
+                    <i class="bi bi-eye"></i>
                 </button>
                 <button class="btn btn-success btn-sm me-2" data-bs-toggle="modal" data-bs-target="#editAdminModal">
-                  <i class="bi bi-pencil"></i>
+                    <i class="bi bi-pencil"></i>
                 </button>
                 <button class="btn btn-danger btn-sm" onclick="deleteAdmin()">
-                  <i class="bi bi-person-dash"></i>
+                    <i class="bi bi-person-dash"></i>
                 </button>
-              </td>
+            </td>                    
             </tr>
           </tbody>
         </table>
@@ -141,24 +141,26 @@
       </div>
     </div>
 
-    <!-- Modal Ver -->
-    <div class="modal fade" id="viewAdminModal" tabindex="-1" aria-labelledby="viewAdminModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
+<!-- Modal: Ver Información -->
+<div class="modal fade" id="viewAdminModal" tabindex="-1" aria-labelledby="viewAdminModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="viewAdminModalLabel">Ver Información</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+              <h5 class="modal-title" id="viewAdminModalLabel">Ver Información</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
           </div>
           <div class="modal-body">
-            <p><strong>Teléfono:</strong> 123456789</p>
-            <p><strong>Correo:</strong> admin@example.com</p>
+              <p><strong>Teléfono:</strong> <span id="viewAdminPhone"></span></p>
+              <p><strong>Correo:</strong> <span id="viewAdminEmail"></span></p>
+              <p><strong>Grupo:</strong> <span id="viewAdminGroup"></span></p> <!-- Nuevo campo para el grupo -->
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
           </div>
-        </div>
       </div>
-    </div>
+  </div>
+</div>
+
 
     <!-- Modal Editar -->
     <div class="modal fade" id="editAdminModal" tabindex="-1" aria-labelledby="editAdminModalLabel" aria-hidden="true">
@@ -186,6 +188,14 @@
                 <label for="editAdminEmail" class="form-label">Correo</label>
                 <input type="email" class="form-control" id="editAdminEmail" value="valeria@example.com" required>
               </div>
+              <div class="mb-3">
+                <label for="editAdminUsername" class="form-label">Usuario</label>
+                <input type="text" class="form-control" id="editAdminUsername" placeholder="Nombre de usuario">
+            </div>
+            <div class="mb-3">
+                <label for="editAdminPassword" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="editAdminPassword" placeholder="Contraseña">
+            </div>            
               <div class="mb-3">
                 <label for="editAdminGroup" class="form-label">Grupo</label>
                 <select class="form-select" id="editAdminGroup" required>
