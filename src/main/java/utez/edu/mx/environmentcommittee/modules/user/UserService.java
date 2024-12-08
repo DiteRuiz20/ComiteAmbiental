@@ -136,8 +136,6 @@ public class UserService {
         }
     }
 
-
-
     @Transactional(rollbackFor = {SQLException.class, Exception.class})
     public ResponseEntity<?> deleteById(long id) {
         Optional<User> user = Optional.ofNullable(userRepository.findById(id));
