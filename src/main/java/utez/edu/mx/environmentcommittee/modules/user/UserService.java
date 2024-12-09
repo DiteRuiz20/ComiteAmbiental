@@ -31,15 +31,17 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    private UserDTO transformUserToDTO(User u) {
+    public UserDTO transformUserToDTO(User user) {
         return new UserDTO(
-                u.getId(),
-                u.getName(),
-                u.getLastname(),
-                u.getPhone(),
-                u.getEmail(),
-                u.getUsername(),
-                u.getRole()
+                user.getId(),
+                user.getName(),
+                user.getPhone(),
+                user.getUsername(),
+                user.getLastname(),
+                user.getEmail(),
+                user.getUsername(),
+                user.getRole(),
+                user.getGroup()
         );
     }
 

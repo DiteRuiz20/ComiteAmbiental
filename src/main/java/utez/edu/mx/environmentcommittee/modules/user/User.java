@@ -66,4 +66,12 @@ public class User {
 
         public Role getRole() { return role; }
         public void setRole(Role role) { this.role = role; }
+
+        public Group getGroup() {
+                return group;
+        }
+
+        public void setGroup(Group group) {
+                this.group = group;
+        }
 }
