@@ -1,4 +1,7 @@
 package utez.edu.mx.environmentcommittee.modules.event;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import utez.edu.mx.environmentcommittee.modules.type.Type;
 import utez.edu.mx.environmentcommittee.modules.user.User;
@@ -17,9 +20,11 @@ public class Event {
         @Column(name = "title", nullable = false)
         private String title;
 
+        @JsonFormat(pattern = "yyyy-MM-dd")
         @Column(name = "date", nullable = false)
         @Temporal(TemporalType.DATE)
         private Date date;
+
 
         @Column(name = "status", nullable = false)
         private String status;
@@ -29,6 +34,7 @@ public class Event {
         private Type type;
 
         @ManyToMany
+        @JsonIgnore
         @JoinTable(
                 name = "event_has_users",
                 joinColumns = @JoinColumn(name = "event_id"),
@@ -36,8 +42,7 @@ public class Event {
         )
         private List<User> users;
 
-        public Event() {
-        }
+        public Event() {}
 
         public Event(String title, Date date, String status) {
                 this.title = title;

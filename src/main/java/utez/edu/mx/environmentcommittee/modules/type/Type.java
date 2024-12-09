@@ -1,4 +1,5 @@
 package utez.edu.mx.environmentcommittee.modules.type;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import utez.edu.mx.environmentcommittee.modules.event.Event;
 
@@ -16,6 +17,7 @@ public class Type {
     private String name;
 
     @OneToMany(mappedBy = "type")
+    @JsonIgnore
     private List<Event> events;
 
     public Type() {

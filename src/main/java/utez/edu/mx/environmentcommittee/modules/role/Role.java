@@ -1,4 +1,5 @@
 package utez.edu.mx.environmentcommittee.modules.role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import utez.edu.mx.environmentcommittee.modules.user.User;
 
@@ -16,6 +17,7 @@ public class Role {
     private String name;
 
     @OneToMany(mappedBy = "role")
+    @JsonIgnore
     private List<User> users;
 
     public Role() {
