@@ -246,11 +246,14 @@ const viewAdmin = async (id) => {
             document.getElementById('viewAdminEmail').textContent = admin.email || "Sin información";
 
             // Verificar si tiene un grupo asignado
-            const groupName = admin.group ? admin.group.name : "No asignado"; // Verifica si existe un grupo
+            const groupName = admin.group && admin.group.name ? admin.group.name : "No asignado"; // Verifica si existe un grupo
             document.getElementById('viewAdminGroup').textContent = groupName; // Mostrar el nombre del grupo
+        } else {
+            Swal.fire("Error", "No se pudo cargar la información del administrador.", "error");
         }
     } catch (error) {
         console.error('Error al cargar la información del administrador:', error);
+        Swal.fire("Error", "Ocurrió un problema al cargar la información del administrador.", "error");
     }
 };
 

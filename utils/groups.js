@@ -25,8 +25,8 @@ const findAllAdmins = async () => {
         });
         const data = await response.json();
 
-        // Filtrar solo administradores (rol 1)
-        adminList = (data.data || []).filter(user => user.role && user.role.id === 1);
+        // Filtrar administradores no asignados
+        adminList = (data.data || []).filter(user => user.role?.id === 1 && !groupList.some(group => group.admin?.id === user.id));
     } catch (error) {
         console.error('Error al obtener administradores:', error);
     }
@@ -99,47 +99,113 @@ const saveGroup = async () => {
 // Cargar datos de un grupo en el modal de edición
 const loadGroup = async (id) => {
     try {
-        await findAllAdmins(); // Asegurarse de tener los administradores antes de cargar
         const response = await fetch(`${URL}/api/group/${id}`);
         const data = await response.json();
         const group = data.data;
 
         if (group) {
+            // Rellenar los campos editables
             document.getElementById("editGroupName").value = group.name;
             document.getElementById("editGroupMunicipio").value = group.municipality;
             document.getElementById("editGroupNeighborhood").value = group.neighborhood;
 
-            // Cargar administradores dinámicamente en el select y seleccionar el actual
-            const adminSelect = document.getElementById("editAdmin");
-            adminSelect.innerHTML = adminList.map(admin => `
-                <option value="${admin.id}" ${group.admin?.id === admin.id ? "selected" : ""}>
-                    ${admin.name} ${admin.lastname}
-                </option>
-            `).join("");
+            // Rellenar el nombre del administrador en el campo readonly
+            document.getElementById("editAdminName").value = group.admin
+                ? `${group.admin.name} ${group.admin.lastname}`
+                : "Sin administrador asignado";
+
+            // Rellenar el campo oculto con el ID del administrador
+            document.getElementById("editAdminId").value = group.admin ? group.admin.id : "";
         }
     } catch (error) {
         console.error("Error al cargar el grupo:", error);
     }
 };
 
+// Eliminar un grupo
+const deleteGroup = async (id) => {
+    Swal.fire({
+        title: "¿Estás seguro?",
+        text: "No podrás revertir esta acción.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Sí, eliminar",
+        cancelButtonText: "Cancelar",
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            try {
+                const response = await fetch(`${URL}/api/group/${id}`, {
+                    method: "DELETE",
+                    headers: { "Content-Type": "application/json" },
+                });
+
+                if (response.ok) {
+                    Swal.fire("Eliminado", "El grupo fue eliminado exitosamente.", "success");
+                    await loadTable(); // Recargar la tabla para reflejar los cambios
+                } else {
+                    Swal.fire("Error", "No se pudo eliminar el grupo. Intenta nuevamente.", "error");
+                }
+            } catch (error) {
+                console.error("Error al eliminar el grupo:", error);
+                Swal.fire("Error", "Ocurrió un problema al eliminar el grupo.", "error");
+            }
+        }
+    });
+};
+
+// Mostrar detalles de un grupo en el modal
+const viewGroup = async (id) => {
+    try {
+        // Solicitar los datos del grupo al servidor
+        const response = await fetch(`${URL}/api/group/${id}`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            const group = data.data;
+
+            if (group) {
+                // Actualizar los datos del modal con los detalles del grupo
+                const modalBody = document.querySelector("#viewGroupModal .modal-body");
+                modalBody.innerHTML = `
+                    <p><strong>Nombre:</strong> ${group.name}</p>
+                    <p><strong>Municipio:</strong> ${group.municipality || "No disponible"}</p>
+                    <p><strong>Colonia:</strong> ${group.neighborhood || "No disponible"}</p>
+                `;
+            } else {
+                Swal.fire("Error", "No se encontraron datos para el grupo seleccionado.", "error");
+            }
+        } else {
+            Swal.fire("Error", "No se pudo obtener los datos del grupo.", "error");
+        }
+    } catch (error) {
+        console.error("Error al obtener los detalles del grupo:", error);
+        Swal.fire("Error", "Ocurrió un problema al cargar los detalles del grupo.", "error");
+    }
+};
+
 // Actualizar un grupo
 const saveGroupChanges = async () => {
-    const id = document.getElementById("editGroupName").dataset.groupId;
+    const groupId = document.getElementById("editGroupName").dataset.groupId; // ID del grupo
     const name = document.getElementById("editGroupName").value.trim();
-    const municipio = document.getElementById("editGroupMunicipio").value.trim();
+    const municipality = document.getElementById("editGroupMunicipio").value.trim();
     const neighborhood = document.getElementById("editGroupNeighborhood").value.trim();
-    const adminId = document.getElementById("editAdmin").value;
+    const adminId = document.getElementById("editAdminId").value; // ID del administrador (oculto)
 
-    if (!name || !municipio || !neighborhood) {
+    if (!groupId || !name || !municipality || !neighborhood || !adminId) {
         return Swal.fire("Error", "Por favor, completa todos los campos obligatorios.", "error");
     }
 
     const updatedGroup = {
-        id,
+        id: parseInt(groupId),
         name,
-        municipality: municipio,
+        municipality,
         neighborhood,
-        admin: adminId ? { id: parseInt(adminId) } : null,
+        admin: { id: parseInt(adminId) }, // El ID del admin permanece inmutable
     };
 
     try {
@@ -154,7 +220,8 @@ const saveGroupChanges = async () => {
             await loadTable();
             bootstrap.Modal.getInstance(document.getElementById("editGroupModal")).hide();
         } else {
-            Swal.fire("Error", "No se pudo actualizar el grupo.", "error");
+            const errorData = await response.json();
+            Swal.fire("Error", errorData.message || "No se pudo actualizar el grupo.", "error");
         }
     } catch (error) {
         Swal.fire("Error", "Ocurrió un problema al actualizar el grupo.", "error");
