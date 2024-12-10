@@ -39,13 +39,15 @@ public class UserService {
                 u.getPhone(),
                 u.getEmail(),
                 u.getUsername(),
-                u.getRole()
+                u.getRole(),
+                u.getGroup() != null ? u.getGroup().getName() : "No asignado"
         );
     }
 
+
     @Transactional(readOnly = true)
     public ResponseEntity<?> findAll() {
-        List<User> users = userRepository.findAll();
+        List<User> users = userRepository.findAllWithGroupAndRole();
         if (users.isEmpty()) {
             return customResponseEntity.getOkResponse("No se encontraron usuarios", "OK", 200, null);
         }

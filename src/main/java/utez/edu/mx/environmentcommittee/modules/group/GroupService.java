@@ -21,21 +21,21 @@ public class GroupService {
     // BRING ALL GROUPS
     @Transactional(readOnly = true)
     public ResponseEntity<?> findAll() {
-        List<Group> groups = groupRepository.findAll();
+        List<Group> groups = groupRepository.findAllWithAdmin();
         if (groups.isEmpty()) {
-            return customResponseEntity.getOkResponse("No groups found", "OK", 200, null);
+            return customResponseEntity.getOkResponse("No se encontraron grupos", "OK", 200, null);
         }
-        return customResponseEntity.getOkResponse("Groups found", "OK", 200, groups);
+        return customResponseEntity.getOkResponse("Grupos encontrados", "OK", 200, groups);
     }
 
     // BRING GROUP BY ID
     @Transactional(readOnly = true)
     public ResponseEntity<?> findById(long id) {
-        Optional<Group> group = Optional.ofNullable(groupRepository.findById(id));
-        if (!group.isPresent()) {
+        Group group = groupRepository.findByIdWithAdmin(id);
+        if (group == null) {
             return customResponseEntity.get404Response();
         }
-        return customResponseEntity.getOkResponse("Group found", "OK", 200, group.get());
+        return customResponseEntity.getOkResponse("Grupo encontrado", "OK", 200, group);
     }
 
     // FIND GROUPS BY MUNICIPALITY
@@ -63,23 +63,32 @@ public class GroupService {
     // UPDATE GROUP
     @Transactional(rollbackFor = {SQLException.class, Exception.class})
     public ResponseEntity<?> update(Group group) {
-        Optional<Group> existingGroup = Optional.ofNullable(groupRepository.findById(group.getId()));
+        Optional<Group> existingGroup = groupRepository.findById(group.getId());
         if (!existingGroup.isPresent()) {
-            return customResponseEntity.get404Response();
+            return customResponseEntity.get404Response(); // Grupo no encontrado
         }
+
         try {
-            groupRepository.save(group);
-            return customResponseEntity.getOkResponse("Group successfully updated", "OK", 200, null);
+            // Actualizar solo los campos permitidos
+            Group groupToUpdate = existingGroup.get();
+            groupToUpdate.setName(group.getName());
+            groupToUpdate.setMunicipality(group.getMunicipality());
+            groupToUpdate.setNeighborhood(group.getNeighborhood());
+
+            // Nota: No actualizamos el campo "admin" aquí.
+
+            groupRepository.save(groupToUpdate);
+            return customResponseEntity.getOkResponse("Grupo actualizado con éxito", "OK", 200, null);
         } catch (Exception e) {
             e.printStackTrace();
-            return customResponseEntity.get400Response("Error updating group: " + e.getMessage());
+            return customResponseEntity.get400Response("Error al actualizar el grupo: " + e.getMessage());
         }
     }
 
     // DELETE GROUP
     @Transactional(rollbackFor = {SQLException.class, Exception.class})
     public ResponseEntity<?> deleteById(long id) {
-        Optional<Group> group = Optional.ofNullable(groupRepository.findById(id));
+        Optional<Optional<Group>> group = Optional.ofNullable(groupRepository.findById(id));
         if (!group.isPresent()) {
             return customResponseEntity.get404Response();
         }

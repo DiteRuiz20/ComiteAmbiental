@@ -5,25 +5,25 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface GroupRepository extends JpaRepository<Group, Long> {
-    // BRING ALL GROUPS
-    List<Group> findAll();
+    @Query("SELECT g FROM Group g LEFT JOIN FETCH g.admin")
+    List<Group> findAllWithAdmin();
 
-    // BRING GROUP BY ID
-    Group findById(long id);
+    @Query("SELECT g FROM Group g WHERE g.admin.id = :adminId")
+    Optional<Group> findByAdminId(@Param("adminId") long adminId);
 
-    // SAVE/UPDATE GROUP
-    Group save(Group groupss);
+    @Query("SELECT g FROM Group g LEFT JOIN FETCH g.admin WHERE g.id = :id")
+    Group findByIdWithAdmin(@Param("id") long id);
 
-    // DELETE GROUP
     @Modifying
-    @Query(value = "DELETE FROM groupss WHERE id = :id", nativeQuery = true)
+    @Query("DELETE FROM Group g WHERE g.id = :id")
     void deleteById(@Param("id") long id);
 
-    // FIND GROUP BY MUNICIPALITY
     @Query(value = "SELECT * FROM groupss WHERE municipality = :municipality", nativeQuery = true)
     List<Group> findByMunicipality(@Param("municipality") String municipality);
 }

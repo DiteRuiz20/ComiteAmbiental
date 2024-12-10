@@ -1,4 +1,5 @@
 package utez.edu.mx.environmentcommittee.modules.group;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import utez.edu.mx.environmentcommittee.modules.user.User;
@@ -23,10 +24,14 @@ public class Group {
     private String neighborhood;
 
     @OneToMany(mappedBy = "group")
+    @JsonIgnore
     private List<User> users;
 
-    public Group() {
-    }
+    @OneToOne
+    @JoinColumn(name = "admin_id", referencedColumnName = "id", nullable = true)
+    private User admin;
+
+    public Group() {}
 
     public Group(String name, String municipality, String neighborhood) {
         this.name = name;
@@ -48,12 +53,13 @@ public class Group {
         this.users = users;
     }
 
-    public Group(long id, String name, String municipality, String neighborhood, List<User> users) {
+    public Group(long id, String name, String municipality, String neighborhood, List<User> users, User admin) {
         this.id = id;
         this.name = name;
         this.municipality = municipality;
         this.neighborhood = neighborhood;
         this.users = users;
+        this.admin = admin;
     }
 
     public long getId() {
@@ -94,5 +100,13 @@ public class Group {
 
     public void setUsers(List<User> users) {
         this.users = users;
+    }
+
+    public User getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(User admin) {
+        this.admin = admin;
     }
 }

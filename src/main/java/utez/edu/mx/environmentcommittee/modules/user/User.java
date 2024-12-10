@@ -33,9 +33,9 @@ public class User {
         @Column(name = "password", nullable = false)
         private String password;
 
+        // No ocupe JSONIgnore porque excluye el grupo de la serialización JSON
         @ManyToOne
         @JoinColumn(name = "group_id", nullable = true)
-        @JsonIgnore
         private Group group;
 
         @ManyToOne
@@ -66,4 +66,7 @@ public class User {
 
         public Role getRole() { return role; }
         public void setRole(Role role) { this.role = role; }
+
+        public Group getGroup() {return group;}
+        public void setGroup(Group group) {this.group = group;}
 }

@@ -10,10 +10,11 @@ public class UserDTO {
     private String email;
     private String username;
     private Role role;
+    private String group;
 
     public UserDTO() {}
 
-    public UserDTO(long id, String name, String lastname, String phone, String email, String username, Role role) {
+    public UserDTO(long id, String name, String lastname, String phone, String email, String username, Role role, String group) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
@@ -21,6 +22,7 @@ public class UserDTO {
         this.email = email;
         this.username = username;
         this.role = role;
+        this.group = group;
     }
 
     // Getters and Setters
@@ -44,4 +46,7 @@ public class UserDTO {
 
     public Role getRole() { return role; }
     public void setRole(Role role) { this.role = role; }
+
+    public String getGroup() { return group; }
+    public void setGroup(String group) { this.group = group; }
 }

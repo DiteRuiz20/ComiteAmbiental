@@ -11,6 +11,9 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByEmail(String email);
 
+    @Query("SELECT u FROM User u LEFT JOIN FETCH u.group LEFT JOIN FETCH u.role")
+    List<User> findAllWithGroupAndRole();
+
     // BRING ALL USERS
     List<User> findAll();
 
